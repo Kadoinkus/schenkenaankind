@@ -1,6 +1,14 @@
 import Button from "./Button.jsx";
+import InlineExplain from "./InlineExplain.jsx";
 
-export default function SegmentedControl({ label, value, options, onChange }) {
+export default function SegmentedControl({
+  label,
+  value,
+  options,
+  onChange,
+  explanation,
+  explanationTitle,
+}) {
   return (
     <div className="segmented-control">
       <span className="segmented-control__label">{label}</span>
@@ -15,6 +23,11 @@ export default function SegmentedControl({ label, value, options, onChange }) {
           </Button>
         ))}
       </div>
+      {explanation ? (
+        <InlineExplain title={explanationTitle || "Wat betekent dit?"}>
+          <p>{explanation}</p>
+        </InlineExplain>
+      ) : null}
     </div>
   );
 }

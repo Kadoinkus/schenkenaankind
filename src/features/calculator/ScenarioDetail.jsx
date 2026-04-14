@@ -109,7 +109,7 @@ export default function ScenarioDetail({ selectedScenarioId, model }) {
 
   return (
     <SectionCard
-      eyebrow="Stap 3"
+      eyebrow="Detail per route"
       title={meta.title}
       subtitle={meta.summary}
       tone={meta.tone}

@@ -9,6 +9,7 @@ export default function ScenarioComparison({ state, model, actions }) {
     id: meta.id,
     title: meta.title,
     tone: meta.tone,
+    icon: meta.icon,
     shortLabel: meta.shortLabel,
     summary: meta.summary,
     value: model.scenarios[meta.id].directBurden,
@@ -16,23 +17,27 @@ export default function ScenarioComparison({ state, model, actions }) {
 
   const paperAdvantage =
     model.scenarios.doNothing.directBurden - model.scenarios.paperGift.directBurden;
+  const bestItem = comparisonItems.reduce((best, current) =>
+    current.value < best.value ? current : best,
+  );
 
   return (
     <SectionCard
-      eyebrow="Stap 2"
+      eyebrow="Vergelijk routes"
       title="Vergelijking"
-      subtitle="De balken hieronder vergelijken de directe lasten in deze vereenvoudigde rekenmethode. Jaarlijkse neveneffecten staan in de scenario-details."
+      subtitle="Kies hieronder een route. U ziet per paneel de directe lasten en opent daarna de details van de route die u wilt bekijken."
     >
       <ComparisonList
         items={comparisonItems}
         selectedId={state.selectedScenarioId}
-        maxValue={model.overview.comparisonMax}
+        bestId={bestItem.id}
+        bestValue={bestItem.value}
         onSelect={actions.setSelectedScenario}
       />
 
       {paperAdvantage > 0 ? (
-        <Callout title="Snel inzicht" tone="success" icon="check">
-          In deze invoer is een papieren schenking {formatCurrency(paperAdvantage)} lager in
+        <Callout title="Kort samengevat" tone="info" icon="check">
+          In deze invoer komt papieren schenking {formatCurrency(paperAdvantage)} lager uit in
           directe lasten dan niets doen.
         </Callout>
       ) : null}

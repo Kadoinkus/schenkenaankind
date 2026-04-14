@@ -1,40 +1,60 @@
 import { formatCurrency } from "../../lib/formatters.js";
 import Badge from "./Badge.jsx";
-import Button from "./Button.jsx";
+import Icon from "./Icon.jsx";
 
 export default function ComparisonList({
   items,
   selectedId,
-  maxValue,
+  bestId,
+  bestValue,
   onSelect,
 }) {
   return (
-    <div className="comparison-list">
+    <div className="comparison-list comparison-list--panels">
       {items.map((item) => {
-        const width = `${Math.max(8, (item.value / maxValue) * 100)}%`;
+        const difference = item.value - bestValue;
+        const isBest = item.id === bestId;
+        const isSelected = selectedId === item.id;
+
         return (
-          <Button
+          <button
             key={item.id}
-            className="comparison-list__item"
-            active={selectedId === item.id}
+            type="button"
+            className={`comparison-card ${isSelected ? "is-selected" : ""}`.trim()}
             onClick={() => onSelect(item.id)}
           >
-            <div className="comparison-list__content">
-              <div className="comparison-list__heading">
-                <span>{item.title}</span>
-                <Badge tone={item.tone}>{item.shortLabel}</Badge>
+            <div className="comparison-card__top">
+              <div className="comparison-card__icon">
+                <Icon name={item.icon} size={18} />
               </div>
-              <p className="comparison-list__summary">{item.summary}</p>
-              <div className="comparison-list__track" aria-hidden="true">
-                <div
-                  className={`comparison-list__fill comparison-list__fill--${item.tone}`}
-                  style={{ width }}
-                >
-                  {formatCurrency(item.value)}
-                </div>
-              </div>
+              <Badge tone="blue">{item.shortLabel}</Badge>
             </div>
-          </Button>
+
+            <div className="comparison-card__body">
+              <h3>{item.title}</h3>
+              <p>{item.summary}</p>
+            </div>
+
+            <div className="comparison-card__value-block">
+              <span>Directe lasten</span>
+              <strong>{formatCurrency(item.value)}</strong>
+            </div>
+
+            <div className="comparison-card__meta">
+              {isBest ? (
+                <span className="comparison-card__best">Laagste in deze berekening</span>
+              ) : (
+                <span className="comparison-card__difference">
+                  {formatCurrency(difference)} hoger dan de laagste uitkomst
+                </span>
+              )}
+            </div>
+
+            <div className="comparison-card__footer">
+              <span>Bekijk details</span>
+              <Icon name="chevronRight" size={16} />
+            </div>
+          </button>
         );
       })}
     </div>

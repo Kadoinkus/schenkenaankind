@@ -1,13 +1,59 @@
 export const appCopy = {
   brand: "Huisoverdrachtgids",
   eyebrow: "Woningoverdracht binnen de familie",
-  title: "Vergelijk helder wat een woningoverdracht aan uw kinderen financieel kan betekenen.",
+  title: "Bereken duidelijk wat het kan betekenen om uw woning later of eerder aan uw kinderen over te dragen.",
   lead:
-    "Deze rekentool helpt u om drie veelbesproken routes naast elkaar te zetten: niets doen, een STAK-constructie en een papieren schenking. U ziet vooral wat de directe lasten, de jaarlijkse aandachtspunten en de verwachte verdeling na een gekozen aantal jaren zijn.",
+    "Deze tool laat in gewone taal zien wat drie routes ongeveer kunnen betekenen: niets doen, werken met een STAK of schenken op papier. U ziet eerst de hoofduitkomst en kunt daarna pas de details openen.",
   disclaimer:
     "Niet-officieel hulpmiddel. De uitkomst is indicatief en vervangt geen advies van een notaris of fiscalist.",
-  reviewedOn: "2026-04-14",
+  reviewedOn: "2026-04-15",
 };
+
+export const homepageHero = {
+  title: "Een duidelijke eerste berekening voordat u met een notaris of adviseur verdergaat.",
+  body:
+    "Veel mensen willen weten of zij beter kunnen afwachten, eerder kunnen schenken of juist iets kunnen vastleggen voor later. Deze site helpt u eerst rustig begrijpen wat de verschillen ongeveer zijn.",
+  image:
+    "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1400&q=80",
+  imageAlt:
+    "Voorzijde van een woonhuis, als beeld bij het onderwerp woningoverdracht binnen de familie.",
+};
+
+export const homepageBenefits = [
+  {
+    icon: "calculator",
+    title: "Eerst de hoofdlijn",
+    text: "U ziet snel welke route in deze vereenvoudigde berekening de laagste directe lasten geeft.",
+  },
+  {
+    icon: "help",
+    title: "Uitleg bij moeilijke termen",
+    text: "Begrippen zoals hypotheekrenteaftrek, box 3 en wettelijke verdeling zijn overal aanklikbaar uitgelegd.",
+  },
+  {
+    icon: "fileText",
+    title: "Gemaakt voor voorbereiding",
+    text: "De uitkomst helpt om beter voorbereid verder te praten met een notaris, fiscalist of familie.",
+  },
+];
+
+export const homepageSteps = [
+  {
+    icon: "house",
+    title: "Vul uw woning en hypotheek in",
+    text: "U begint met een paar basisgegevens die de meeste mensen direct kunnen vinden.",
+  },
+  {
+    icon: "users",
+    title: "Kies uw gezinssituatie",
+    text: "Daarna vult u in of er een partner is, hoeveel kinderen er zijn en hoe u wilt verdelen.",
+  },
+  {
+    icon: "chart",
+    title: "Maak de berekening",
+    text: "U krijgt eerst een korte uitkomst. De diepere uitleg opent u alleen als u die nodig heeft.",
+  },
+];
 
 export const quickGuidance = [
   {
@@ -96,6 +142,84 @@ export const professionalTriggers = [
   "De woning maakt deel uit van groter vermogen of een onderneming.",
   "U wilt de eigendom echt overdragen en niet alleen verkennen.",
 ];
+
+export const termExplainers = {
+  homeValue: {
+    title: "Wat is de WOZ-waarde?",
+    body:
+      "Dit is de waarde die de gemeente aan uw woning geeft. U vindt die meestal op de WOZ-beschikking. We gebruiken deze waarde als vertrekpunt voor de berekening.",
+  },
+  mortgageBalance: {
+    title: "Wat is de resterende hypotheek?",
+    body:
+      "Dit is het bedrag dat u nu nog moet terugbetalen aan de bank. Dat bedrag gaat af van de woningwaarde om de overwaarde te berekenen.",
+  },
+  mortgageInterestRate: {
+    title: "Wat bedoelen we met hypotheekrente?",
+    body:
+      "Dit is het rentepercentage dat u op dit moment betaalt over uw hypotheek. We gebruiken dit om de jaarlijkse rentelasten te schatten.",
+  },
+  monthlyMortgageCost: {
+    title: "Wat is de maandlast bank?",
+    body:
+      "Dit is het bedrag dat u iedere maand aan de bank betaalt. Bij een annuïtaire hypotheek zit daar meestal rente en aflossing in.",
+  },
+  mortgageType: {
+    title: "Wat is het verschil tussen aflossingsvrij en annuiteit?",
+    body:
+      "Bij aflossingsvrij lost u normaal gesproken niet tussentijds af. Bij annuiteit betaalt u meestal elke maand rente en een stukje aflossing.",
+  },
+  partner: {
+    title: "Waarom vraagt de tool naar een partner?",
+    body:
+      "Een partner kan recht hebben op een deel van de nalatenschap. Daardoor verandert vaak wat er voor de kinderen overblijft en hoeveel erfbelasting ongeveer speelt.",
+  },
+  partnerShare: {
+    title: "Wat is wettelijke verdeling?",
+    body:
+      "In deze tool betekent dit dat partner en kinderen elk een gelijk deel krijgen in de berekening. In de praktijk kan de juridische uitwerking uitgebreider zijn.",
+  },
+  childrenCount: {
+    title: "Waarom is het aantal kinderen belangrijk?",
+    body:
+      "De vrijstellingen en de uiteindelijke verdeling hangen af van het aantal kinderen dat meedoet in de berekening.",
+  },
+  childShares: {
+    title: "Wat betekent verdeling kinderen?",
+    body:
+      "Hiermee bepaalt u hoe het deel voor de kinderen onderling wordt verdeeld. Laat dit op gelijke delen staan als u nog geen afwijkende verdeling wilt vergelijken.",
+  },
+  yearsToReview: {
+    title: "Waarom kiest u een aantal jaren vooruit?",
+    body:
+      "De tool rekent vooruit naar een gekozen moment. Zo ziet u hoe woninggroei, schenkingen en andere effecten in de tijd kunnen uitpakken.",
+  },
+  annualGrowthRate: {
+    title: "Wat is waardestijging per jaar?",
+    body:
+      "Dit is een aannameschatting van hoeveel de woningwaarde jaarlijks stijgt of daalt. Weet u dit niet? Laat dan de standaardwaarde staan.",
+  },
+  mortgageInterestReliefRate: {
+    title: "Wat is hypotheekrenteaftrek?",
+    body:
+      "Hypotheekrenteaftrek is een belastingvoordeel op de rente die u betaalt voor uw eigen woning. Deze tool gebruikt hiervoor een standaardpercentage. U hoeft dit alleen aan te passen als u goed weet waarom.",
+  },
+  stak: {
+    title: "Wat is een STAK?",
+    body:
+      "Een STAK is een juridische structuur waarmee economische waarde anders kan worden verdeeld dan het juridische eigendom. Dat is specialistisch werk en vraagt bijna altijd begeleiding van een notaris of adviseur.",
+  },
+  paperGift: {
+    title: "Wat is schenken op papier?",
+    body:
+      "Bij schenken op papier legt u vast dat u een bedrag schenkt, zonder dat het geld direct wordt overgemaakt. Daarvoor gelden wel formele eisen, waaronder een notariële akte en jaarlijkse rentebetaling.",
+  },
+  box3: {
+    title: "Wat is box 3 in deze tool?",
+    body:
+      "Box 3 is de belasting op vermogen. In deze berekening kan een vordering of certificaat bij de kinderen meetellen als vermogen, waardoor er jaarlijks belasting kan ontstaan.",
+  },
+};
 
 export const sourceLinks = [
   {

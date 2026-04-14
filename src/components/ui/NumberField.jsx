@@ -1,3 +1,5 @@
+import InlineExplain from "./InlineExplain.jsx";
+
 export default function NumberField({
   id,
   label,
@@ -8,10 +10,14 @@ export default function NumberField({
   max,
   step,
   onChange,
+  explanation,
+  explanationTitle,
 }) {
   return (
-    <label className="field" htmlFor={id}>
-      <span className="field__label">{label}</span>
+    <div className="field">
+      <label className="field__label" htmlFor={id}>
+        {label}
+      </label>
       {hint ? <span className="field__hint">{hint}</span> : null}
       <span className="field__input-wrap">
         <input
@@ -27,6 +33,11 @@ export default function NumberField({
         />
         {suffix ? <span className="field__suffix">{suffix}</span> : null}
       </span>
-    </label>
+      {explanation ? (
+        <InlineExplain title={explanationTitle || "Wat betekent dit?"}>
+          <p>{explanation}</p>
+        </InlineExplain>
+      ) : null}
+    </div>
   );
 }
