@@ -1,0 +1,535 @@
+/* === RESET & BASE === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blauw: #01689b;
+  --donker: #154273;
+  --licht: #e8f3f8;
+  --geel: #ffb612;
+  --oranje: #e17000;
+  --groen: #39870c;
+  --rood: #d52b1e;
+  --grijs: #696969;
+  --lichtgrijs: #f3f3f3;
+  --wit: #fff;
+  --tekst: #333;
+  --rand: #c8c8c8;
+  --paars: #6a1b9a;
+}
+
+body {
+  font-family: 'Calibri', 'Arial', sans-serif;
+  background: var(--wit);
+  color: var(--tekst);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* === HEADER === */
+.header {
+  background: var(--blauw);
+  padding: 10px 14px;
+}
+.header-sub {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.5);
+}
+.header-title {
+  color: var(--wit);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* === WARNING BAR === */
+.warning-bar {
+  background: var(--geel);
+  padding: 5px 14px;
+  font-size: 10px;
+  color: var(--donker);
+}
+
+/* === MAIN === */
+.main-content {
+  padding-top: 12px;
+  padding-bottom: 40px;
+}
+
+/* === BLOK (card component) === */
+.blok {
+  background: var(--wit);
+  border: 1px solid var(--rand);
+  border-top: 4px solid var(--blauw);
+  margin-bottom: 16px;
+}
+.blok[data-accent="oranje"] { border-top-color: var(--oranje); }
+.blok[data-accent="rood"]   { border-top-color: var(--rood); }
+.blok[data-accent="groen"]  { border-top-color: var(--groen); }
+.blok[data-accent="paars"]  { border-top-color: var(--paars); }
+
+.blok-header {
+  background: var(--lichtgrijs);
+  border-bottom: 1px solid var(--rand);
+  padding: 10px 14px;
+}
+.blok-header h3 {
+  font-size: 14px;
+  color: var(--donker);
+  font-weight: 700;
+}
+.blok-header .blok-sub {
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--grijs);
+}
+.blok-body {
+  padding: 12px 14px;
+}
+
+/* === INPUT COMPONENT === */
+.inp {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+  min-width: 110px;
+}
+.inp label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--donker);
+  text-transform: uppercase;
+}
+.inp .inp-wrap {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.inp input[type="number"] {
+  padding: 7px 8px;
+  border: 1px solid var(--rand);
+  font-size: 14px;
+  font-weight: 700;
+  width: 100%;
+  outline: none;
+}
+.inp .inp-suffix {
+  font-size: 11px;
+  color: var(--grijs);
+  white-space: nowrap;
+}
+.inp .inp-help {
+  font-size: 9px;
+  color: var(--grijs);
+}
+
+/* === ROWS === */
+.input-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.toggle-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.toggle-row .toggle-label {
+  font-size: 10px;
+  font-weight: 700;
+}
+.toggle-row .toggle-spacer {
+  margin-left: 10px;
+}
+
+/* === BUTTON (toggle) === */
+.btn {
+  padding: 5px 12px;
+  background: var(--wit);
+  color: var(--tekst);
+  border: 1px solid var(--rand);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: inherit;
+}
+.btn.active {
+  background: var(--blauw);
+  color: var(--wit);
+  border-color: var(--blauw);
+}
+
+/* === STAT BOX === */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 5px;
+}
+.stat {
+  background: var(--licht);
+  padding: 7px 9px;
+}
+.stat.accent {
+  border-left: 3px solid var(--blauw);
+}
+.stat-title {
+  font-size: 9px;
+  color: var(--blauw);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.stat-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--donker);
+}
+.stat-value.groen  { color: var(--groen); }
+.stat-value.paars  { color: var(--paars); }
+.stat-value.blauw  { color: var(--blauw); }
+
+/* === RIJ (key-value row) === */
+.rij {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+.rij.border {
+  border-top: 2px solid var(--rand);
+  margin-top: 3px;
+}
+.rij-left {
+  font-size: 12px;
+  color: var(--tekst);
+}
+.rij-right {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--tekst);
+  white-space: nowrap;
+}
+.rij.bold .rij-left  { font-weight: 700; }
+.rij.bold .rij-right { font-size: 14px; }
+
+/* Color overrides for rij */
+.rij .groen  { color: var(--groen); }
+.rij .rood   { color: var(--rood); }
+.rij .oranje { color: var(--oranje); }
+.rij .paars  { color: var(--paars); }
+.rij .blauw  { color: var(--blauw); }
+
+/* === VERGELIJKING BAR === */
+.vergelijk-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  margin-bottom: 4px;
+  background: var(--wit);
+  border: 2px solid var(--rand);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+}
+.vergelijk-btn.active {
+  background: var(--lichtgrijs);
+  border-color: var(--blauw);
+}
+.vergelijk-btn .bar-label {
+  min-width: 155px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.vergelijk-btn .bar-track {
+  flex: 1;
+  height: 20px;
+  background: var(--lichtgrijs);
+  overflow: hidden;
+}
+.vergelijk-btn .bar-fill {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--wit);
+  transition: width 0.4s;
+  min-width: 45px;
+}
+.vergelijk-btn .bar-fill.oranje { background: var(--oranje); }
+.vergelijk-btn .bar-fill.rood   { background: var(--rood); }
+.vergelijk-btn .bar-fill.groen  { background: var(--groen); }
+
+.besparing-box {
+  background: #e8f5e9;
+  border: 1px solid var(--groen);
+  padding: 5px 10px;
+  margin-top: 3px;
+  font-size: 11px;
+}
+
+/* === PARTNER BOX === */
+.partner-box {
+  background: var(--licht);
+  border: 1px solid var(--blauw);
+  padding: 10px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  line-height: 1.7;
+}
+.partner-box .partner-title {
+  font-weight: 700;
+  color: var(--blauw);
+}
+.partner-box .partner-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+.partner-box .partner-slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.partner-box input[type="range"] {
+  width: 100px;
+  accent-color: var(--paars);
+}
+.partner-box input[type="number"] {
+  width: 45px;
+  padding: 3px 4px;
+  border: 1px solid var(--rand);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+.partner-box .partner-info {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 11px;
+}
+.partner-box .partner-explain {
+  margin-top: 6px;
+  font-size: 10px;
+  color: var(--grijs);
+}
+
+/* === KIND SLIDER === */
+.kind-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 80px;
+}
+.kind-slider label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--donker);
+}
+.kind-slider .slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.kind-slider input[type="range"] {
+  width: 60px;
+  accent-color: var(--blauw);
+}
+.kind-slider .slider-val {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* === DETAIL: PARTNER CARD === */
+.partner-card {
+  border: 2px solid var(--paars);
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.partner-card-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.partner-card-head .pc-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--paars);
+}
+.partner-card-head .pc-pct {
+  font-size: 10px;
+  background: #f3e5f5;
+  padding: 1px 6px;
+  font-weight: 700;
+  color: var(--paars);
+}
+.partner-card .pc-note {
+  font-size: 10px;
+  color: var(--groen);
+  margin-top: 2px;
+}
+.partner-card .pc-explain {
+  font-size: 10px;
+  color: var(--grijs);
+  margin-top: 4px;
+}
+
+/* === DETAIL: KIND CARDS === */
+.kind-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.kind-card {
+  border: 1px solid var(--rand);
+  padding: 8px;
+  flex: 1;
+  min-width: 175px;
+}
+.kind-card-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.kind-card-head .kc-name {
+  font-size: 11px;
+  font-weight: 700;
+}
+.kind-card-head .kc-pct {
+  font-size: 9px;
+  background: var(--licht);
+  padding: 1px 5px;
+  font-weight: 700;
+  color: var(--blauw);
+}
+
+/* === PIE CHART === */
+.taart {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.taart-legend {
+  font-size: 9px;
+  line-height: 1.7;
+}
+.taart-legend .swatch {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 3px;
+}
+.taart-legend .swatch.groen { background: var(--groen); }
+.taart-legend .swatch.rood  { background: var(--rood); }
+
+/* === TOTAAL BOX === */
+.totaal-box {
+  border: 1px solid;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.totaal-box.oranje { background: #fff3e0; border-color: var(--oranje); }
+.totaal-box.rood   { background: #fce4ec; border-color: var(--rood); }
+.totaal-box.groen  { background: #e8f5e9; border-color: var(--groen); }
+.totaal-box .totaal-val {
+  font-size: 18px;
+  font-weight: 700;
+}
+.totaal-box .totaal-val.oranje { color: var(--oranje); }
+.totaal-box .totaal-val.rood   { color: var(--rood); }
+.totaal-box .totaal-val.groen  { color: var(--groen); }
+
+/* === ALERT BOXES === */
+.alert {
+  padding: 8px;
+  font-size: 10px;
+  margin-bottom: 6px;
+  line-height: 1.7;
+}
+.alert.rood  { background: #fce4ec; border: 1px solid var(--rood); }
+.alert.groen { background: #e8f5e9; border: 1px solid var(--groen); }
+
+/* === TIJDLIJN (timeline table) === */
+.tijdlijn {
+  border: 1px solid var(--rand);
+  margin-top: 10px;
+  overflow: auto;
+}
+.tijdlijn-header {
+  background: var(--lichtgrijs);
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--rand);
+}
+.tijdlijn-header b {
+  font-size: 11px;
+}
+.tijdlijn table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.tijdlijn th {
+  padding: 5px;
+  border-bottom: 1px solid var(--rand);
+  font-size: 9px;
+  white-space: nowrap;
+  text-align: left;
+  background: var(--lichtgrijs);
+}
+.tijdlijn td {
+  padding: 3px 5px;
+  font-size: 9px;
+}
+.tijdlijn tr {
+  border-bottom: 1px solid var(--lichtgrijs);
+}
+.tijdlijn td:first-child {
+  font-weight: 700;
+}
+.tijdlijn .col-groen { color: var(--groen); }
+.tijdlijn .col-rood  { color: var(--rood); }
+.tijdlijn .col-blauw { color: var(--blauw); }
+.tijdlijn .col-oranje { color: var(--oranje); }
+.tijdlijn .cell-bold { font-weight: 700; }
+.tijdlijn-footer {
+  padding: 6px 10px;
+  background: var(--lichtgrijs);
+  border-top: 1px solid var(--rand);
+  font-size: 9px;
+  color: var(--grijs);
+  line-height: 1.6;
+}
+
+/* === BRONNEN === */
+.bronnen {
+  border-top: 1px solid var(--rand);
+  padding-top: 10px;
+  font-size: 8px;
+  color: var(--grijs);
+  line-height: 2;
+}
+.bronnen .bronnen-title {
+  color: var(--donker);
+  font-size: 9px;
+  font-weight: 700;
+}
+.bronnen a {
+  color: var(--blauw);
+}
