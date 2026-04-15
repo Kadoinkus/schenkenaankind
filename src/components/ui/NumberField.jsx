@@ -13,6 +13,12 @@ export default function NumberField({
   explanation,
   explanationTitle,
 }) {
+  const numericStep = Number(step);
+  const isWholeNumberInput =
+    Number.isFinite(numericStep) && Math.floor(numericStep) === numericStep;
+  const allowsNegative = Number.isFinite(Number(min)) && Number(min) < 0;
+  const inputMode = allowsNegative ? "text" : isWholeNumberInput ? "numeric" : "decimal";
+
   return (
     <div className="field">
       <label className="field__label" htmlFor={id}>
@@ -23,13 +29,17 @@ export default function NumberField({
         <input
           id={id}
           className="field__input"
-          type="number"
-          inputMode="decimal"
+          type="text"
+          inputMode={inputMode}
+          pattern={!allowsNegative && isWholeNumberInput ? "[0-9]*" : undefined}
           value={value}
           min={min}
           max={max}
           step={step}
+          autoComplete="off"
           onChange={(event) => onChange(event.target.value)}
+          onFocus={(event) => event.target.select()}
+          onClick={(event) => event.target.select()}
         />
         {suffix ? <span className="field__suffix">{suffix}</span> : null}
       </span>

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { termExplainers } from "../../content/copy.js";
-import { formatCurrency, formatMinorCurrency } from "../../lib/formatters.js";
+import { coerceNumber, formatCurrency, formatMinorCurrency } from "../../lib/formatters.js";
 import { findOptimalTransferAmount } from "../../domain/calculateTransferScenarios.js";
 import AccordionItem from "../../components/ui/AccordionItem.jsx";
 import Button from "../../components/ui/Button.jsx";
@@ -556,16 +556,21 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
                               <label>
                                 <span className="prior-gift-fields__label">Bedrag</span>
                                 <input
-                                  type="number"
+                                  type="text"
                                   className="prior-gift-fields__input"
+                                  inputMode="numeric"
+                                  pattern="[0-9]*"
                                   value={priorGift.amount || ""}
                                   placeholder="0"
                                   min="0"
                                   step="1000"
+                                  autoComplete="off"
+                                  onFocus={(event) => event.target.select()}
+                                  onClick={(event) => event.target.select()}
                                   onChange={(event) =>
                                     actions.setChildPriorGift(index, {
                                       ...priorGift,
-                                      amount: Math.max(0, Number(event.target.value) || 0),
+                                      amount: Math.max(0, coerceNumber(event.target.value, 0)),
                                     })
                                   }
                                 />
@@ -573,16 +578,27 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
                               <label>
                                 <span className="prior-gift-fields__label">Jaar</span>
                                 <input
-                                  type="number"
+                                  type="text"
                                   className="prior-gift-fields__input"
+                                  inputMode="numeric"
+                                  pattern="[0-9]*"
                                   value={priorGift.year || ""}
                                   min="2000"
                                   max="2026"
                                   step="1"
+                                  autoComplete="off"
+                                  onFocus={(event) => event.target.select()}
+                                  onClick={(event) => event.target.select()}
                                   onChange={(event) =>
                                     actions.setChildPriorGift(index, {
                                       ...priorGift,
-                                      year: Number(event.target.value) || 2025,
+                                      year: Math.max(
+                                        2000,
+                                        Math.min(
+                                          2026,
+                                          Math.round(coerceNumber(event.target.value, 2025)),
+                                        ),
+                                      ),
                                     })
                                   }
                                 />

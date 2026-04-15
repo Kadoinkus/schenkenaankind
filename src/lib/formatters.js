@@ -3,6 +3,21 @@ export function clamp(value, min, max) {
 }
 
 export function coerceNumber(value, fallback = 0) {
+  if (typeof value === "string") {
+    const compactValue = value.trim().replace(/\s+/g, "");
+
+    if (!compactValue) {
+      return fallback;
+    }
+
+    const groupedThousandsPattern = /^-?\d{1,3}([.,]\d{3})+$/;
+    const normalizedValue = groupedThousandsPattern.test(compactValue)
+      ? compactValue.replace(/[.,]/g, "")
+      : compactValue.replace(",", ".");
+    const parsed = Number(normalizedValue);
+    return Number.isFinite(parsed) ? parsed : fallback;
+  }
+
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : fallback;
 }

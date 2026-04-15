@@ -106,7 +106,13 @@ export function useTransferCalculator() {
       }));
     },
     setChildrenCount(rawValue) {
-      const childrenCount = clamp(Math.round(coerceNumber(rawValue, 1)), 1, 8);
+      const digitsOnly = String(rawValue ?? "").replace(/\D/g, "");
+      // On mobile, typing over an existing single-digit value often appends
+      // instead of replacing (for example 2 -> 23). Keep only the last digit
+      // here so the field behaves like a simple 1-8 picker.
+      const normalizedValue =
+        digitsOnly.length > 1 ? digitsOnly.at(-1) : digitsOnly || "1";
+      const childrenCount = clamp(Math.round(coerceNumber(normalizedValue, 1)), 1, 8);
       setState((current) => ({
         ...current,
         childrenCount,
