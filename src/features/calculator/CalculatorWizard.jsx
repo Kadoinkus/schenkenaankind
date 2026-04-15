@@ -542,7 +542,7 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
                 <div className="distribution-editor">
                   {model.inputs.childShares.map((share, index) => {
                     const priorGift = state.childPriorGifts?.[index] || null;
-                    const hasPriorGift = priorGift && priorGift.amount > 0;
+                    const hasPriorGift = priorGift !== null && priorGift !== undefined;
                     return (
                       <div
                         className="distribution-editor__item"
