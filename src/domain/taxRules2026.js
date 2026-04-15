@@ -7,29 +7,45 @@ export const taxRules2026 = {
   inheritanceRate1: 0.1,
   inheritanceRate2: 0.2,
   inheritanceRateThreshold: 158669,
-  transferTaxRate: 0.08,
-  promissoryGiftInterestRate: 0.06,
+  giftRate1: 0.1,
+  giftRate2: 0.2,
+  giftRateThreshold: 158669,
+  transferTaxRate: 0.104,
+  residentTransferTaxRate: 0.02,
   box3DeemedReturnOtherAssets: 0.06,
   box3TaxRate: 0.36,
   box3ExemptionPerPerson: 59357,
-  annualDebtThresholdBox3: 3800,
   imputedRentalRate: 0.0035,
-  defaultMortgageReliefRate: 37.56,
-  notaryEstimateStak: 4000,
-  notaryEstimatePaperGift: 750,
+  defaultMortgageReliefRate: 36.93,
+  notaryEstimatePropertyTransfer: 1300,
 };
 
-export function calculateInheritanceTax(taxableAmount, rules = taxRules2026) {
+function calculateProgressiveTax(taxableAmount, threshold, rate1, rate2) {
   if (taxableAmount <= 0) {
     return 0;
   }
 
-  if (taxableAmount <= rules.inheritanceRateThreshold) {
-    return taxableAmount * rules.inheritanceRate1;
+  if (taxableAmount <= threshold) {
+    return taxableAmount * rate1;
   }
 
-  return (
-    rules.inheritanceRateThreshold * rules.inheritanceRate1 +
-    (taxableAmount - rules.inheritanceRateThreshold) * rules.inheritanceRate2
+  return threshold * rate1 + (taxableAmount - threshold) * rate2;
+}
+
+export function calculateInheritanceTax(taxableAmount, rules = taxRules2026) {
+  return calculateProgressiveTax(
+    taxableAmount,
+    rules.inheritanceRateThreshold,
+    rules.inheritanceRate1,
+    rules.inheritanceRate2,
+  );
+}
+
+export function calculateGiftTax(taxableAmount, rules = taxRules2026) {
+  return calculateProgressiveTax(
+    taxableAmount,
+    rules.giftRateThreshold,
+    rules.giftRate1,
+    rules.giftRate2,
   );
 }

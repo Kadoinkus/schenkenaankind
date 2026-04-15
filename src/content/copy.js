@@ -1,18 +1,18 @@
 export const appCopy = {
   brand: "Huisoverdrachtgids",
   eyebrow: "Woningoverdracht binnen de familie",
-  title: "Bereken duidelijk wat het kan betekenen om uw woning later of eerder aan uw kinderen over te dragen.",
+  title: "Bereken duidelijk wat het kan betekenen om eigendom van uw woning nu of later aan uw kinderen over te dragen.",
   lead:
-    "Deze tool laat in gewone taal zien wat drie routes ongeveer kunnen betekenen: niets doen, werken met een STAK of schenken op papier. U ziet eerst de hoofduitkomst en kunt daarna pas de details openen.",
+    "Deze tool vergelijkt in 2026 drie gewone routes: niets doen, in 1 keer een groter eigendomsdeel schenken, of elk jaar een kleiner deel van de woning overdragen. U ziet eerst de hoofdlijn en opent daarna alleen de uitleg die u nodig hebt.",
   disclaimer:
-    "Niet-officieel hulpmiddel. De uitkomst is indicatief en vervangt geen advies van een notaris of fiscalist.",
+    "Niet-officieel hulpmiddel. De uitkomst is indicatief en vervangt geen advies van een notaris, fiscalist of hypotheekverstrekker.",
   reviewedOn: "2026-04-15",
 };
 
 export const homepageHero = {
-  title: "Een duidelijke eerste berekening voordat u met een notaris of adviseur verdergaat.",
+  title: "Een eerste vergelijking voor het schenken van woningeigendom aan uw kinderen.",
   body:
-    "Veel mensen willen weten of zij beter kunnen afwachten, eerder kunnen schenken of juist iets kunnen vastleggen voor later. Deze site helpt u eerst rustig begrijpen wat de verschillen ongeveer zijn.",
+    "Veel families willen eerst weten wat er gebeurt als zij wachten, nu een groter deel van de woning schenken of de overdracht juist in jaarlijkse stappen doen. Deze site maakt die afweging rustiger en begrijpelijker.",
   image:
     "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1400&q=80",
   imageAlt:
@@ -23,17 +23,17 @@ export const homepageBenefits = [
   {
     icon: "calculator",
     title: "Eerst de hoofdlijn",
-    text: "U ziet snel welke route in deze vereenvoudigde berekening de laagste directe lasten geeft.",
+    text: "U ziet snel hoe directe lasten kunnen verschillen tussen wachten, nu schenken en jaarlijks overdragen.",
   },
   {
     icon: "help",
     title: "Uitleg bij moeilijke termen",
-    text: "Begrippen zoals hypotheekrenteaftrek, box 3 en wettelijke verdeling zijn overal aanklikbaar uitgelegd.",
+    text: "Begrippen zoals overdrachtsbelasting, box 3 en hypotheekrenteaftrek zijn overal aanklikbaar uitgelegd.",
   },
   {
     icon: "fileText",
     title: "Gemaakt voor voorbereiding",
-    text: "De uitkomst helpt om beter voorbereid verder te praten met een notaris, fiscalist of familie.",
+    text: "De uitkomst helpt om beter voorbereid verder te praten met uw notaris, adviseur en hypotheekverstrekker.",
   },
 ];
 
@@ -41,47 +41,47 @@ export const homepageSteps = [
   {
     icon: "house",
     title: "Vul uw woning en hypotheek in",
-    text: "U begint met een paar basisgegevens die de meeste mensen direct kunnen vinden.",
+    text: "U begint met de WOZ-waarde, de resterende hypotheek en een paar aannames over de woning.",
   },
   {
     icon: "users",
     title: "Kies uw gezinssituatie",
-    text: "Daarna vult u in of er een partner is, hoeveel kinderen er zijn en hoe u wilt verdelen.",
+    text: "Daarna vult u in of er een partner is, hoeveel kinderen er zijn en hoe de nalatenschap ongeveer verdeeld wordt.",
   },
   {
     icon: "chart",
-    title: "Maak de berekening",
-    text: "U krijgt eerst een korte uitkomst. De diepere uitleg opent u alleen als u die nodig heeft.",
+    title: "Vergelijk de routes",
+    text: "U ziet welke lasten nu en later ongeveer horen bij niets doen, nu schenken of jaarlijks schenken.",
   },
 ];
 
 export const quickGuidance = [
   {
     title: "Vul uw situatie in",
-    text: "Gebruik de WOZ-waarde, de resterende hypotheek en het aantal kinderen om de berekening op uw gezinssituatie af te stemmen.",
+    text: "Gebruik de WOZ-waarde, de resterende hypotheek en het aantal kinderen om de vergelijking op uw gezinssituatie af te stemmen.",
   },
   {
-    title: "Lees de scenario's naast elkaar",
-    text: "De vergelijking toont directe lasten in de gekozen periode. In de details ziet u ook terugkerende effecten zoals rente, box 3 en verlies van hypotheekrenteaftrek.",
+    title: "Lees de routes naast elkaar",
+    text: "De vergelijking toont directe lasten in de gekozen periode. In de details ziet u ook terugkerende effecten zoals box 3, overdrachtsbelasting en verlies van hypotheekrenteaftrek.",
   },
   {
     title: "Gebruik de uitkomst als gespreksbasis",
-    text: "Bij echte overdracht spelen ook testament, huwelijkse voorwaarden, werkelijk box 3-rendement en notariële keuzes mee.",
+    text: "Bij echte overdracht spelen ook toestemming van de bank, de akte, de verdeling van de schuld en de woonsituatie van de kinderen mee.",
   },
 ];
 
 export const contextBlocks = [
   {
     title: "Wat deze tool vergelijkt",
-    text: "De tool houdt de focus op de woning en de directe familie. Andere bezittingen, schulden en persoonlijke vrijstellingen buiten deze casus blijven buiten beeld.",
+    text: "De tool houdt de focus op de woning en de directe familie. Andere bezittingen, schulden en fiscale uitzonderingen blijven buiten beeld.",
   },
   {
     title: "Wat vereenvoudigd is",
-    text: "Box 3 is benaderd met het voorlopige percentage voor 'andere bezittingen' in 2026. In werkelijkheid kan uw rendement lager of hoger uitvallen.",
+    text: "De berekening gaat uit van de WOZ-waarde als vertrekpunt, vaste 2026-tarieven en een vereenvoudigde box 3-benadering. De echte uitkomst kan afwijken.",
   },
   {
     title: "Wanneer u moet doorvragen",
-    text: "Zodra er een partner, een afwijkende verdeling, bestaande schenkingen of meerdere woningen in het spel zijn, is notarieel en fiscaal maatwerk nodig.",
+    text: "Zodra er een lopende hypotheek, meerdere woningen, eerdere schenkingen of een kind dat zelf in de woning gaat wonen in het spel zijn, is maatwerk nodig.",
   },
 ];
 
@@ -92,72 +92,72 @@ export const scenarioGuides = {
     summary:
       "U houdt de woning volledig in eigen bezit en schuift de overdracht door naar het moment van overlijden.",
     suitableFor:
-      "Past vooral bij gezinnen die nu geen juridische structuur willen opzetten en de situatie eerst rustig willen laten zoals die is.",
+      "Past vooral bij gezinnen die nu geen eigendom willen overdragen en eerst willen begrijpen hoe groot het latere verschil ongeveer is.",
     watchout:
       "De latere nalatenschap groeit mee met de woningwaarde, waardoor de erfbelasting later vaak hoger uitvalt.",
   },
-  stak: {
+  oneTimeTransfer: {
     label: "Optie 2",
-    title: "STAK-constructie",
+    title: "In 1 keer schenken",
     summary:
-      "Een STAK kan de economische waarde van de woning eerder overdragen, maar vraagt een zwaardere juridische inrichting.",
+      "U draagt in 1 akte een groter eigendomsdeel van de woning over aan uw kinderen in het door u gekozen jaar. Daarmee verschuift ook toekomstige waardestijging eerder naar hen.",
     suitableFor:
-      "Kan relevant zijn als u gericht wilt structureren en u bereid bent om direct notariële en fiscale lasten te dragen.",
+      "Past vooral als u liever 1 duidelijke overdrachtsstap zet en die in een gekozen jaar wilt vergelijken.",
     watchout:
-      "In deze vereenvoudigde vergelijking tellen overdrachtsbelasting, notariële kosten, box 3 en verlies van hypotheekrenteaftrek zwaar mee.",
+      "Bij een grotere overdracht kunnen schenkbelasting, overdrachtsbelasting en gevolgen voor de hypotheek direct zwaar meewegen.",
   },
-  paperGift: {
+  annualTransfer: {
     label: "Optie 3",
-    title: "Papieren schenking",
+    title: "Jaarlijks een deel schenken",
     summary:
-      "U schenkt op papier aan uw kinderen en houdt de woning in bezit. Jaarlijks moet wel daadwerkelijk rente aan de kinderen worden betaald.",
+      "U draagt elk jaar een kleiner eigendomsdeel over, ongeveer binnen de schenkingsruimte van dat jaar. Daardoor bouwt de overdracht stap voor stap op.",
     suitableFor:
-      "Vaak het meest praktisch als u de woning nog wilt blijven gebruiken en tegelijk de toekomstige nalatenschap wilt verlagen.",
+      "Past vooral als u kleinere jaarlijkse stappen wilt vergelijken en de directe belastingdruk liever uitsmeert.",
     watchout:
-      "De notariële akte en de jaarlijkse rentebetalingen zijn essentieel. Ook valt de vordering van de kinderen in box 3.",
+      "Voor elk nieuw eigendomsdeel is opnieuw een notariële overdracht nodig. Daardoor lopen aktekosten en uitvoering per jaar op.",
   },
 };
 
 export const faqItems = [
   {
-    title: "Waarom zijn de lasten in de tool niet hetzelfde als uw uiteindelijke belastingaanslag?",
+    title: "Waarom zijn de lasten in de tool niet hetzelfde als uw uiteindelijke aanslag?",
     body:
-      "Omdat de tool met een vaste set aannames rekent. Denk aan een constante woninggroei, een vereenvoudigde box 3-benadering en standaardbedragen voor notariële kosten. De echte aanslag hangt af van uw volledige vermogen, fiscale partnerverdeling en wetgeving op het moment van overdracht of overlijden.",
+      "Omdat de tool met vaste 2026-aannames rekent. Denk aan de WOZ-waarde als vertrekpunt, vaste notariële kosten per akte, een vereenvoudigde box 3-benadering en een eenvoudige behandeling van de hypotheek.",
   },
   {
-    title: "Wanneer is de partnerverdeling automatisch gelijk verdeeld?",
+    title: "Waarom vraagt de tool naar een partner?",
     body:
-      "Als u 'wettelijke verdeling' gebruikt, deelt de tool de nalatenschap gelijk over partner en kinderen. Dat is een vereenvoudiging van de wettelijke verdeling en vooral bedoeld om snel scenario's te vergelijken.",
+      "Een partner kan recht hebben op een deel van de resterende nalatenschap. Daardoor verandert hoeveel van de woning later nog naar de kinderen gaat en hoeveel erfbelasting ongeveer speelt.",
   },
   {
-    title: "Waarom toont de tool ook rente, box 3 en hypotheekrenteaftrek?",
+    title: "Waarom toont de tool ook box 3 en hypotheekrenteaftrek?",
     body:
-      "Omdat directe erfbelasting alleen niet genoeg context geeft. Een route kan op papier minder erfbelasting geven, maar in de tussentijd wel extra jaarlijkse kosten of gemiste aftrek opleveren.",
+      "Omdat eigendom eerder overdragen niet alleen invloed heeft op latere erfbelasting. Het kan ook betekenen dat kinderen eerder box 3-vermogen krijgen en dat een deel van de hypotheekrenteaftrek verdwijnt.",
   },
 ];
 
 export const professionalTriggers = [
+  "Er loopt nog een hypotheek en de bank moet mogelijk toestemming geven.",
   "Er is al eerder geschonken of gelegateerd.",
-  "Er is een partner met een afwijkende verdeling of een testament.",
+  "Een kind gaat zelf in de woning wonen of neemt een deel van de lening over.",
   "De woning maakt deel uit van groter vermogen of een onderneming.",
-  "U wilt de eigendom echt overdragen en niet alleen verkennen.",
 ];
 
 export const termExplainers = {
   homeValue: {
-    title: "Wat is de WOZ-waarde?",
+    title: "Welke WOZ-waarde gebruikt de tool?",
     body:
-      "Dit is de waarde die de gemeente aan uw woning geeft. U vindt die meestal op de WOZ-beschikking. We gebruiken deze waarde als vertrekpunt voor de berekening.",
+      "De tool gaat uit van nu, dus van 2026. Gebruik daarom uw WOZ-beschikking 2026 als startpunt. Voor een echte schenking in 2026 mag later vaak de laagste van WOZ 2026 en WOZ 2027 worden gebruikt, maar deze tool rekent eerst met WOZ 2026 en projecteert daarna verder met de jaarlijkse groei.",
   },
   mortgageBalance: {
     title: "Wat is de resterende hypotheek?",
     body:
-      "Dit is het bedrag dat u nu nog moet terugbetalen aan de bank. Dat bedrag gaat af van de woningwaarde om de overwaarde te berekenen.",
+      "Dit is het bedrag dat u nu nog aan de bank moet terugbetalen. In de praktijk kan een echte eigendomsoverdracht met hypotheek extra toestemming of aanpassing vragen.",
   },
   mortgageInterestRate: {
     title: "Wat bedoelen we met hypotheekrente?",
     body:
-      "Dit is het rentepercentage dat u op dit moment betaalt over uw hypotheek. We gebruiken dit om de jaarlijkse rentelasten te schatten.",
+      "Dit is het rentepercentage dat u op dit moment betaalt over uw hypotheek. We gebruiken dit om het mogelijke verlies van hypotheekrenteaftrek te schatten.",
   },
   monthlyMortgageCost: {
     title: "Wat is de maandlast bank?",
@@ -172,86 +172,291 @@ export const termExplainers = {
   partner: {
     title: "Waarom vraagt de tool naar een partner?",
     body:
-      "Een partner kan recht hebben op een deel van de nalatenschap. Daardoor verandert vaak wat er voor de kinderen overblijft en hoeveel erfbelasting ongeveer speelt.",
+      "Een partner kan recht hebben op een deel van de resterende nalatenschap. Daardoor verandert wat er later voor de kinderen overblijft.",
   },
   partnerShare: {
-    title: "Wat is wettelijke verdeling?",
+    title: "Wat is wettelijke verdeling in deze tool?",
     body:
-      "In deze tool betekent dit dat partner en kinderen elk een gelijk deel krijgen in de berekening. In de praktijk kan de juridische uitwerking uitgebreider zijn.",
+      "In deze tool betekent dit dat partner en kinderen elk een gelijk deel krijgen in de vereenvoudigde vergelijking. In de praktijk kan de juridische uitwerking uitgebreider zijn.",
   },
   childrenCount: {
     title: "Waarom is het aantal kinderen belangrijk?",
     body:
-      "De vrijstellingen en de uiteindelijke verdeling hangen af van het aantal kinderen dat meedoet in de berekening.",
+      "De jaarlijkse en eenmalige vrijstellingen gelden per kind. Ook hangt de uiteindelijke verdeling af van hoeveel kinderen meedoen in de berekening.",
   },
   childShares: {
     title: "Wat betekent verdeling kinderen?",
     body:
       "Hiermee bepaalt u hoe het deel voor de kinderen onderling wordt verdeeld. Laat dit op gelijke delen staan als u nog geen afwijkende verdeling wilt vergelijken.",
   },
+  childLivesInHome: {
+    title: "Wat verandert er als een kind in de woning woont of gaat wonen?",
+    body:
+      "Als een kind zelf in de woning woont of gaat wonen, geldt het lagere eigen-woningtarief van 2% overdrachtsbelasting in plaats van 10,4%. Bovendien valt het woningdeel van dat kind in box 1 in plaats van box 3, waardoor er geen vermogensrendementsheffing over dat deel wordt berekend. In de per-kind uitsplitsing ziet u het verschil terug.",
+  },
   yearsToReview: {
     title: "Waarom kiest u een aantal jaren vooruit?",
     body:
-      "De tool rekent vooruit naar een gekozen moment. Zo ziet u hoe woninggroei, schenkingen en andere effecten in de tijd kunnen uitpakken.",
+      "De tool rekent vooruit naar een gekozen moment. Zo ziet u hoe woninggroei en stapsgewijze overdracht later kunnen uitpakken.",
   },
   annualGrowthRate: {
     title: "Wat is waardestijging per jaar?",
     body:
       "Dit is een aannameschatting van hoeveel de woningwaarde jaarlijks stijgt of daalt. Weet u dit niet? Laat dan de standaardwaarde staan.",
   },
+  targetTransferValue: {
+    title: "Hoeveel woningwaarde wilt u vergelijken als schenking?",
+    body:
+      "Dit is het bedrag aan woningwaarde dat u in de vergelijking wilt weggeven. Bij 'in 1 keer schenken' gaat dit bedrag in 1 akte over in het gekozen jaar. Bij 'jaarlijks een deel schenken' probeert de tool dit bedrag binnen de gekozen jaren uit te smeren, maximaal tot de jaarlijkse schenkruimte die u hebt ingevuld.",
+  },
+  targetTransferMode: {
+    title: "Vult de tool dit bedrag zelf in?",
+    body:
+      "Ja, standaard wel. De tool kan automatisch de optelsom invullen van de vrijstelling per kind voor de eenmalige schenking. Alleen als u bewust een hoger of lager bedrag wilt vergelijken, kiest u voor zelf invullen.",
+  },
+  oneTimeTransferYear: {
+    title: "In welk jaar wilt u de eenmalige schenking vergelijken?",
+    body:
+      "Dit is het jaar binnen uw gekozen periode waarin de route 'in 1 keer schenken' plaatsvindt. Gebruikt u de eenmalig hogere vrijstelling, dan past de tool die ook in dit jaar toe.",
+  },
   mortgageInterestReliefRate: {
     title: "Wat is hypotheekrenteaftrek?",
     body:
-      "Hypotheekrenteaftrek is een belastingvoordeel op de rente die u betaalt voor uw eigen woning. Deze tool gebruikt hiervoor een standaardpercentage. U hoeft dit alleen aan te passen als u goed weet waarom.",
+      "Hypotheekrenteaftrek is een belastingvoordeel op de rente voor de eigen woning. Als u eigendom van de woning wegschenkt, kan dat voordeel deels of helemaal veranderen.",
   },
-  stak: {
-    title: "Wat is een STAK?",
+  annualGiftExemption: {
+    title: "Wat mag u per kind per jaar meestal belastingvrij schenken?",
     body:
-      "Een STAK is een juridische structuur waarmee economische waarde anders kan worden verdeeld dan het juridische eigendom. Dat is specialistisch werk en vraagt bijna altijd begeleiding van een notaris of adviseur.",
+      "In 2026 mogen ouders samen per kind € 6.908 belastingvrij schenken. Geeft u in dat kalenderjaar meer aan hetzelfde kind, dan kan over het meerdere schenkbelasting ontstaan.",
   },
-  paperGift: {
-    title: "Wat is schenken op papier?",
+  oneOffGiftExemption: {
+    title: "Wat is het eenmalig hogere belastingvrije bedrag?",
     body:
-      "Bij schenken op papier legt u vast dat u een bedrag schenkt, zonder dat het geld direct wordt overgemaakt. Daarvoor gelden wel formele eisen, waaronder een notariële akte en jaarlijkse rentebetaling.",
+      "In 2026 is er onder voorwaarden een eenmalig hoger belastingvrij bedrag van € 33.129 per kind. Deze hogere vrijstelling is eenmalig en vervangt in dat jaar de gewone jaarlijkse vrijstelling.",
+  },
+  useOneOffGiftExemption: {
+    title: "Wanneer gebruikt u de eenmalig hogere vrijstelling?",
+    body:
+      "Gebruik dit alleen als deze vrijstelling nog niet eerder is gebruikt, het kind 18 tot 40 jaar is of een partner in die leeftijd heeft, en de voorwaarden echt passen. In deze tool vervangt de hogere vrijstelling dan het eerste jaarlijkse bedrag.",
+  },
+  transferTaxRate: {
+    title: "Waarom staat er overdrachtsbelasting in de tool?",
+    body:
+      "Bij eigendomsoverdracht van een woning kan overdrachtsbelasting spelen. Standaard rekenen we met 10,4% omdat kinderen in veel families de woning niet meteen zelf gaan bewonen. Gaat het kind er zelf wonen, dan geldt het lagere eigen-woningtarief van 2%. Starters onder 35 jaar kunnen onder voorwaarden vrijgesteld zijn.",
+  },
+  notaryCostPerTransfer: {
+    title: "Waarom telt de tool notariële kosten per akte mee?",
+    body:
+      "Voor elk nieuw eigendomsdeel van de woning is een notariële overdracht en registratie nodig. Daarom telt de tool bij jaarlijkse overdracht ook jaarlijks een aktebedrag mee.",
+  },
+  oneTimeTransfer: {
+    title: "Wat betekent in 1 keer schenken?",
+    body:
+      "In deze route gebruikt de tool het door u gekozen bedrag aan woningwaarde en zet dat in 1 akte over in het gekozen jaar. Daardoor verschuift ook de toekomstige waardestijging over dat deel vanaf dat moment mee naar de kinderen.",
+  },
+  annualTransfer: {
+    title: "Wat betekent jaarlijks een deel schenken?",
+    body:
+      "In deze route wordt het door u gekozen bedrag in kleinere jaarlijkse delen overgedragen. De tool gebruikt daarvoor eerst de jaarlijkse schenkruimte die u hebt ingevuld. Als dat niet genoeg is binnen de gekozen jaren, laat de tool zien dat u met de jaarlijkse route minder kunt overdragen dan u eigenlijk wilde vergelijken.",
   },
   box3: {
     title: "Wat is box 3 in deze tool?",
     body:
-      "Box 3 is de belasting op vermogen. In deze berekening kan een vordering of certificaat bij de kinderen meetellen als vermogen, waardoor er jaarlijks belasting kan ontstaan.",
+      "Een kind dat een eigendomsdeel van de ouderlijke woning krijgt terwijl het daar niet zelf woont, krijgt vermogen in box 3. Daarom laat de tool per jaar een benadering van box 3 zien.",
+  },
+  directBurden: {
+    title: "Wat zijn directe lasten in deze vergelijking?",
+    body:
+      "Dit is het totaal waarmee de tool de routes vergelijkt. Het bestaat uit erfbelasting over het resterende woningdeel, plus bij overdracht tijdens leven ook overdrachtsbelasting, schenkbelasting en notariskosten. Box 3 en hypotheekrenteaftrek staan apart en tellen hier niet in mee.",
+  },
+  directCosts: {
+    title: "Wat zijn akten en belastingen nu?",
+    body:
+      "Dit zijn de kosten die tijdens leven ontstaan doordat u al eigendom overdraagt: overdrachtsbelasting, schenkbelasting en notariskosten. Erfbelasting over het resterende deel valt hier niet onder.",
+  },
+  inheritanceTaxOnly: {
+    title: "Wat betekent erfbelasting op resterende nalatenschap?",
+    body:
+      "Dit is alleen de erfbelasting over het deel van de woning dat op het peilmoment nog in de nalatenschap zit. Het al eerder geschonken deel telt daar niet meer in mee.",
+  },
+  transferTaxTotal: {
+    title: "Wat is overdrachtsbelasting in deze uitkomst?",
+    body:
+      "Dit is de overdrachtsbelasting over het eigendomsdeel van de woning dat naar de kinderen overgaat. In deze tool telt dat mee zodra er echt een deel van het huis wordt overgedragen.",
+  },
+  giftTaxTotal: {
+    title: "Wat is schenkbelasting in deze uitkomst?",
+    body:
+      "Dit is de schenkbelasting over het deel van de geschonken woningwaarde dat boven de gebruikte vrijstelling uitkomt. Blijft de overdracht binnen de vrijstelling, dan is dit bedrag 0.",
+  },
+  notaryCostsTotal: {
+    title: "Waarom lopen notariskosten soms op?",
+    body:
+      "Voor ieder jaar waarin echt een deel van de woning wordt overgedragen, gaat de tool uit van een nieuwe akte en dus nieuwe notariskosten. Meer overdrachtsmomenten betekent daarom meestal hogere totale notariskosten.",
+  },
+  mortgageReliefKept: {
+    title: "Wat betekent hypotheekrenteaftrek in deze periode?",
+    body:
+      "Dit is de geschatte hypotheekrenteaftrek die in deze periode behouden blijft als het eigendom niet eerder wordt overgedragen. Dit bedrag zit niet in het totaal directe lasten.",
+  },
+  mortgageReliefImpact: {
+    title: "Wat betekent verlies hypotheekrenteaftrek in deze periode?",
+    body:
+      "Dit is de benadering van het belastingvoordeel dat kan wegvallen doordat niet meer het hele woningdeel bij de ouder in box 1 zit. Dit bedrag staat apart en zit niet in het totaal directe lasten.",
+  },
+  giftedValueAtReview: {
+    title: "Wat betekent al naar kinderen verschoven bij peilmoment?",
+    body:
+      "Dit is de woningwaarde die op het gekozen peilmoment al eerder naar de kinderen is overgegaan. Over dat deel wordt later in deze vergelijking geen erfbelasting meer berekend.",
+  },
+  childGiftedValueAtReview: {
+    title: "Wat betekent al eerder geschonken woningdeel?",
+    body:
+      "Dit is het deel van de woningwaarde dat dit kind op het peilmoment al eerder heeft gekregen. Dat deel zit dus niet meer in de latere nalatenschap.",
+  },
+  childInheritedGrossAtReview: {
+    title: "Wat betekent nog uit nalatenschap?",
+    body:
+      "Dit is het deel van de resterende woningwaarde dat in deze vergelijking pas later via de nalatenschap naar dit kind gaat.",
+  },
+  childInheritanceTax: {
+    title: "Wat betekent erfbelasting over restant?",
+    body:
+      "Dit is de erfbelasting die in deze vergelijking nog hoort bij het deel dat dit kind later uit de nalatenschap krijgt.",
+  },
+  childDirectCostShare: {
+    title: "Wat betekent aandeel in directe kosten?",
+    body:
+      "De tool verdeelt overdrachtsbelasting, schenkbelasting en notariskosten hier over de kinderen volgens hun aandeel in de vergelijking. Zo ziet u hoeveel van de gezamenlijke kosten bij dit kind hoort.",
+  },
+  childProjectedNetOutcome: {
+    title: "Wat betekent netto in deze vergelijking?",
+    body:
+      "Dit is voor dit kind het totaal van eerder geschonken woningwaarde plus het latere deel uit de nalatenschap, min erfbelasting en min het toegerekende deel van de directe kosten. Box 3 en hypotheekrenteaftrek staan hier niet in.",
+  },
+  partnerGrossShare: {
+    title: "Wat betekent bruto aandeel uit resterende nalatenschap?",
+    body:
+      "Dit is het deel van de resterende woningwaarde dat in deze vereenvoudigde vergelijking eerst naar de partner gaat voordat de kinderen hun deel krijgen.",
+  },
+  taxableShare: {
+    title: "Wat betekent belastbare grondslag?",
+    body:
+      "Dit is het bedrag waar na aftrek van de vrijstelling nog belasting over berekend wordt. Alleen dit belastbare deel telt mee voor de erfbelasting.",
+  },
+  partnerInheritanceTax: {
+    title: "Wat betekent erfbelasting partner?",
+    body:
+      "Dit is de erfbelasting die in deze vergelijking hoort bij het deel van de partner in de resterende nalatenschap.",
+  },
+  timelineFutureHomeValue: {
+    title: "Wat betekent WOZ-waarde in de tijdlijn?",
+    body:
+      "Dit is de doorgerekende woningwaarde in dat jaar op basis van uw ingevulde startwaarde en jaarlijkse groei.",
+  },
+  timelineFutureMortgageBalance: {
+    title: "Wat betekent hypotheek in de tijdlijn?",
+    body:
+      "Dit is de geschatte resterende hypotheek in dat jaar volgens de gekozen hypotheekvorm en de ingevulde maandlast.",
+  },
+  timelineFutureEquity: {
+    title: "Wat betekent overwaarde in de tijdlijn?",
+    body:
+      "Dit is de woningwaarde min de resterende hypotheek in dat jaar. Deze overwaarde is het uitgangspunt voor de latere nalatenschap.",
+  },
+  timelineAnnualMortgageRelief: {
+    title: "Wat betekent HRA per jaar?",
+    body:
+      "Dit is een vereenvoudigde schatting van de hypotheekrenteaftrek in dat jaar als de woning volledig bij de ouder blijft.",
+  },
+  timelineChildBox3PerYear: {
+    title: "Wat betekent box 3 kinderen per jaar?",
+    body:
+      "Dit is de benadering van de jaarlijkse box 3-heffing bij de kinderen over het eigendomsdeel dat zij al hebben gekregen.",
+  },
+  timelineInheritanceTaxAtDeath: {
+    title: "Wat betekent erfbelasting in de tijdlijn?",
+    body:
+      "Dit is de erfbelasting die zou horen bij overlijden in dat specifieke jaar, gegeven de dan resterende nalatenschap.",
+  },
+  timelineTransferredThisYear: {
+    title: "Wat betekent nieuw overgedragen deel?",
+    body:
+      "Dit is het bedrag aan woningwaarde dat in dat specifieke jaar extra naar de kinderen overgaat. Staat hier 0, dan vindt er in dat jaar geen nieuwe eigendomsoverdracht plaats.",
+  },
+  timelineGiftedValueAtYear: {
+    title: "Wat betekent waarde al geschonken deel?",
+    body:
+      "Dit is de waarde in dat jaar van het eigendomsdeel dat eerder al naar de kinderen is overgedragen. Dit bedrag kan dus nog stijgen door waardegroei van de woning, ook als er in dat jaar niets nieuws wordt overgedragen.",
+  },
+  timelineTransferredSharePercent: {
+    title: "Wat betekent procent overgedragen?",
+    body:
+      "Dit is welk deel van de totale woning op dat moment al bij de kinderen ligt volgens deze route.",
+  },
+  timelineActCostThisYear: {
+    title: "Wat betekenen aktekosten in de tijdlijn?",
+    body:
+      "Dit zijn de notariskosten die de tool in dat jaar meerekent omdat er in dat jaar een eigendomsoverdracht plaatsvindt.",
+  },
+  timelineTransferTaxThisYear: {
+    title: "Wat betekent overdrachtsbelasting in de tijdlijn?",
+    body:
+      "Dit is de overdrachtsbelasting die in dat jaar hoort bij het eigendomsdeel dat dan wordt overgedragen.",
+  },
+  timelineAnnualMortgageReliefLoss: {
+    title: "Wat betekent verlies HRA?",
+    body:
+      "Dit is de benadering van het deel van de hypotheekrenteaftrek dat in dat jaar kan wegvallen doordat al een deel van de woning is overgedragen.",
+  },
+  timelineBox3PerYear: {
+    title: "Wat betekent box 3 per jaar?",
+    body:
+      "Dit is de benadering van de jaarlijkse box 3-heffing bij de kinderen in dat jaar over het al geschonken eigendomsdeel.",
+  },
+  timelineDirectBurdenAtDeath: {
+    title: "Wat betekenen directe lasten in de tijdlijn?",
+    body:
+      "Dit is het totaal van de al opgebouwde overdrachtsbelasting, schenkbelasting en notariskosten, plus de erfbelasting die zou horen bij overlijden in dat jaar.",
+  },
+  timelineSavingVsDoNothing: {
+    title: "Wat betekent verschil met niets doen?",
+    body:
+      "Dit laat zien hoeveel gunstiger of ongunstiger deze route in dat jaar uitkomt ten opzichte van de route waarin u niets overdraagt. Een positief verschil betekent hier een lagere last dan niets doen.",
   },
 };
 
 export const sourceLinks = [
   {
-    label: "Belastingdienst: hoeveel mag ik mijn kind belastingvrij schenken?",
-    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/schenken/content/hoeveel-mag-ik-mijn-kind-belastingvrij-schenken",
+    label: "Belastingdienst: tot welk bedrag is een schenking belastingvrij in 2026?",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/schenken/content/tot-welk-bedrag-belastingvrij-schenken",
   },
   {
-    label: "Belastingdienst: hoeveel erfbelasting moet ik betalen?",
-    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/erfbelasting/content/hoeveel-erfbelasting-moet-ik-betalen",
+    label: "Belastingdienst: ik krijg een schenking - moet ik aangifte doen?",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/schenken/content/moet-ik-aangifte-schenkbelasting-doen",
+  },
+  {
+    label: "Belastingdienst: ik krijg een woning - welke waarde moet ik aanhouden?",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/schenken/content/hoe-bepaal-ik-de-waarde-van-een-schenking",
+  },
+  {
+    label: "Belastingdienst: situaties gelijk aan aankoop",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/woning/eigen-woning/u-koopt-een-woning/situaties-gelijk-aan-aankoop",
+  },
+  {
+    label: "Belastingdienst: wanneer betaalt u overdrachtsbelasting?",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/woning/overdrachtsbelasting/wanneer_betaalt_u_overdrachtsbelasting/",
+  },
+  {
+    label: "Belastingdienst: wanneer geldt het hoge tarief voor overdrachtsbelasting?",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/woning/overdrachtsbelasting/tarieven_overdrachtsbelasting/hoog-tarief",
   },
   {
     label: "Belastingdienst: box 3 berekening 2026",
     url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/box-3/content/berekening-box-3-inkomen-2026",
   },
   {
-    label: "Belastingdienst: boxen en tarieven",
-    url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/",
-  },
-  {
-    label: "Belastingdienst: eigenwoningforfait",
-    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/koopwoning/content/eigenwoningforfait-702",
-  },
-  {
-    label: "Belastingdienst: schenking op papier",
-    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/schenken/content/hoe-maak-ik-een-schenking-op-papier",
-  },
-  {
-    label: "Rijksoverheid: overdrachtsbelasting",
-    url: "https://www.rijksoverheid.nl/onderwerpen/belasting-betalen/overdrachtsbelasting",
-  },
-  {
-    label: "Belastingdienst: partners voor de erfbelasting",
-    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/erfbelasting/content/partners-voor-de-erfbelasting",
+    label: "Notaris.nl: wat kost een notaris?",
+    url: "https://www.notaris.nl/de-notaris/offerte-en-afspraak/wat-kost-een-notaris",
   },
 ];

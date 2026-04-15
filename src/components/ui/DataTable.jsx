@@ -1,3 +1,5 @@
+import ExplainedLabel from "./ExplainedLabel.jsx";
+
 export default function DataTable({ title, columns, rows, footer }) {
   return (
     <div className="data-table">
@@ -10,7 +12,11 @@ export default function DataTable({ title, columns, rows, footer }) {
             <tr>
               {columns.map((column) => (
                 <th key={column.key} className={column.tone ? `tone-${column.tone}` : ""}>
-                  {column.label}
+                  <ExplainedLabel
+                    label={column.label}
+                    explanation={column.explanation}
+                    explanationTitle={column.explanationTitle}
+                  />
                 </th>
               ))}
             </tr>

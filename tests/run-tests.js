@@ -3,6 +3,7 @@ import {
   calculateTransferScenarios,
   mortgageTypes,
 } from "../src/domain/calculateTransferScenarios.js";
+import { taxRules2026 } from "../src/domain/taxRules2026.js";
 
 function run(name, fn) {
   try {
@@ -26,7 +27,7 @@ run("partner detail is based on projected review equity", () => {
     hasPartner: true,
     childShares: [50, 50],
     annualGrowthRate: 3,
-    mortgageInterestReliefRate: 37.56,
+    mortgageInterestReliefRate: 36.93,
     partnerSharePercent: 0,
   });
 
@@ -47,7 +48,7 @@ run("annuity mortgage lowers the projected mortgage balance", () => {
     hasPartner: false,
     childShares: [100],
     annualGrowthRate: 2,
-    mortgageInterestReliefRate: 37.56,
+    mortgageInterestReliefRate: 36.93,
     partnerSharePercent: 0,
   });
 
@@ -62,7 +63,7 @@ run("annuity mortgage lowers the projected mortgage balance", () => {
     hasPartner: false,
     childShares: [100],
     annualGrowthRate: 2,
-    mortgageInterestReliefRate: 37.56,
+    mortgageInterestReliefRate: 36.93,
     partnerSharePercent: 0,
   });
 
@@ -71,7 +72,7 @@ run("annuity mortgage lowers the projected mortgage balance", () => {
   );
 });
 
-run("paper gift lowers direct burden versus doing nothing in the default scenario", () => {
+run("1 grote overdracht schuift eerder woningwaarde naar kinderen dan jaarlijkse overdracht", () => {
   const result = calculateTransferScenarios({
     homeValue: 700000,
     mortgageBalance: 175000,
@@ -83,11 +84,83 @@ run("paper gift lowers direct burden versus doing nothing in the default scenari
     hasPartner: false,
     childShares: [50, 50],
     annualGrowthRate: 3,
-    mortgageInterestReliefRate: 37.56,
+    mortgageInterestReliefRate: 36.93,
     partnerSharePercent: 0,
+    targetTransferMode: "custom",
+    targetTransferValue: 50000,
   });
 
   assert.ok(
-    result.scenarios.paperGift.directBurden < result.scenarios.doNothing.directBurden,
+    result.scenarios.oneTimeTransfer.giftedValueAtReview >
+      result.scenarios.annualTransfer.giftedValueAtReview,
   );
+});
+
+run("jaarlijks schenken telt meer aktekosten op dan 1 overdracht nu", () => {
+  const result = calculateTransferScenarios({
+    homeValue: 700000,
+    mortgageBalance: 175000,
+    mortgageInterestRate: 3.5,
+    monthlyMortgageCost: 900,
+    mortgageType: mortgageTypes.interestOnly,
+    childrenCount: 2,
+    yearsToReview: 10,
+    hasPartner: false,
+    childShares: [50, 50],
+    annualGrowthRate: 3,
+    mortgageInterestReliefRate: 36.93,
+    partnerSharePercent: 0,
+    targetTransferMode: "custom",
+    targetTransferValue: 50000,
+  });
+
+  assert.ok(
+    result.scenarios.annualTransfer.directCosts >
+      result.scenarios.oneTimeTransfer.directCosts,
+  );
+});
+
+run("doelbedrag voor schenking wordt expliciet begrensd in de jaarlijkse route", () => {
+  const result = calculateTransferScenarios({
+    homeValue: 700000,
+    mortgageBalance: 175000,
+    mortgageInterestRate: 3.5,
+    monthlyMortgageCost: 900,
+    mortgageType: mortgageTypes.interestOnly,
+    childrenCount: 2,
+    yearsToReview: 10,
+    hasPartner: false,
+    childShares: [50, 50],
+    annualGrowthRate: 3,
+    mortgageInterestReliefRate: 36.93,
+    partnerSharePercent: 0,
+    targetTransferMode: "custom",
+    targetTransferValue: 300000,
+  });
+
+  assert.equal(result.overview.plannedTransferValueTotal, 300000);
+  assert.ok(result.overview.annualTransferCapacity < result.overview.plannedTransferValueTotal);
+  assert.ok(result.overview.annualTransferShortfall > 0);
+});
+
+run("eenmalige schenking gebeurt pas in het gekozen jaar", () => {
+  const result = calculateTransferScenarios({
+    homeValue: 700000,
+    mortgageBalance: 175000,
+    mortgageInterestRate: 3.5,
+    monthlyMortgageCost: 900,
+    mortgageType: mortgageTypes.interestOnly,
+    childrenCount: 2,
+    yearsToReview: 10,
+    hasPartner: false,
+    childShares: [50, 50],
+    annualGrowthRate: 3,
+    mortgageInterestReliefRate: 36.93,
+    partnerSharePercent: 0,
+    oneTimeTransferYear: taxRules2026.year + 3,
+    targetTransferValue: 50000,
+  });
+
+  assert.equal(result.scenarios.oneTimeTransfer.timeline[2].giftedValueAtYear, 0);
+  assert.ok(result.scenarios.oneTimeTransfer.timeline[3].giftedValueAtYear > 0);
 });

@@ -5,6 +5,7 @@ import {
   normalizeShares,
 } from "../../domain/calculateTransferScenarios.js";
 import { clamp, coerceNumber } from "../../lib/formatters.js";
+import { taxRules2026 } from "../../domain/taxRules2026.js";
 import { defaultTransferInput } from "./defaultInput.js";
 
 function redistributeShares(currentShares, targetIndex, nextValue, childrenCount) {
@@ -49,15 +50,40 @@ export function useTransferCalculator() {
   const actions = {
     setNumericField(key, rawValue, { min = 0, max = Infinity } = {}) {
       const parsedValue = clamp(coerceNumber(rawValue, 0), min, max);
-      setState((current) => ({
-        ...current,
-        [key]: parsedValue,
-      }));
+      setState((current) => {
+        const nextState = {
+          ...current,
+          [key]: parsedValue,
+        };
+
+        if (key === "yearsToReview") {
+          const maxCalendarYear = taxRules2026.year + parsedValue - 1;
+          nextState.oneTimeTransferYear = clamp(
+            current.oneTimeTransferYear,
+            taxRules2026.year,
+            maxCalendarYear,
+          );
+        }
+
+        return nextState;
+      });
     },
     setSelectedScenario(selectedScenarioId) {
       setState((current) => ({
         ...current,
         selectedScenarioId,
+      }));
+    },
+    setEnumField(key, nextValue) {
+      setState((current) => ({
+        ...current,
+        [key]: nextValue,
+      }));
+    },
+    setBooleanField(key, nextValue) {
+      setState((current) => ({
+        ...current,
+        [key]: Boolean(nextValue),
       }));
     },
     setMortgageType(mortgageType) {
@@ -88,7 +114,18 @@ export function useTransferCalculator() {
           { length: childrenCount },
           () => Math.round(100 / childrenCount),
         ),
+        childLivesInHome: Array.from(
+          { length: childrenCount },
+          (_, i) => (current.childLivesInHome || [])[i] || false,
+        ),
       }));
+    },
+    setChildLivesInHome(index, value) {
+      setState((current) => {
+        const next = [...(current.childLivesInHome || [])];
+        next[index] = Boolean(value);
+        return { ...current, childLivesInHome: next };
+      });
     },
     setChildShare(index, rawValue) {
       const nextValue = clamp(coerceNumber(rawValue, 0), 0, 100);

@@ -9,18 +9,18 @@ export const scenarioMeta = [
     ...scenarioGuides.doNothing,
   },
   {
-    id: "stak",
+    id: "oneTimeTransfer",
     tone: "amber",
-    icon: "balance",
-    shortLabel: scenarioGuides.stak.label,
-    ...scenarioGuides.stak,
+    icon: "fileText",
+    shortLabel: scenarioGuides.oneTimeTransfer.label,
+    ...scenarioGuides.oneTimeTransfer,
   },
   {
-    id: "paperGift",
+    id: "annualTransfer",
     tone: "green",
-    icon: "family",
-    shortLabel: scenarioGuides.paperGift.label,
-    ...scenarioGuides.paperGift,
+    icon: "users",
+    shortLabel: scenarioGuides.annualTransfer.label,
+    ...scenarioGuides.annualTransfer,
   },
 ];
 

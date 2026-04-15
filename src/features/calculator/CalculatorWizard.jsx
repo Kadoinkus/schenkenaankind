@@ -1,11 +1,13 @@
 import { useMemo, useState } from "react";
 import { termExplainers } from "../../content/copy.js";
 import { formatCurrency } from "../../lib/formatters.js";
+import { findOptimalTransferAmount } from "../../domain/calculateTransferScenarios.js";
 import AccordionItem from "../../components/ui/AccordionItem.jsx";
 import Button from "../../components/ui/Button.jsx";
 import Callout from "../../components/ui/Callout.jsx";
 import Icon from "../../components/ui/Icon.jsx";
 import NumberField from "../../components/ui/NumberField.jsx";
+import OptimalTransferChart from "../../components/ui/OptimalTransferChart.jsx";
 import SectionCard from "../../components/ui/SectionCard.jsx";
 import SegmentedControl from "../../components/ui/SegmentedControl.jsx";
 import ScenarioComparison from "./ScenarioComparison.jsx";
@@ -69,6 +71,16 @@ function Stepper({ stepIndex, onStepClick }) {
 export default function CalculatorWizard({ calculator }) {
   const { state, model, actions, mortgageTypes } = calculator;
   const [stepIndex, setStepIndex] = useState(0);
+  const annualFamilyExemption = state.annualGiftExemptionPerChild * state.childrenCount;
+  const oneTimeExemptionPerChild = state.useOneOffGiftExemption
+    ? state.oneOffGiftExemptionPerChild
+    : state.annualGiftExemptionPerChild;
+  const oneTimeFamilyExemption = oneTimeExemptionPerChild * state.childrenCount;
+
+  const optimisation = useMemo(
+    () => findOptimalTransferAmount(state),
+    [state],
+  );
 
   const bestScenarioId = useMemo(() => {
     return Object.values(model.scenarios).sort((a, b) => a.directBurden - b.directBurden)[0].id;
@@ -95,13 +107,13 @@ export default function CalculatorWizard({ calculator }) {
         <SectionCard
           eyebrow="Stap 1 van 4"
           title={steps[0].title}
-          subtitle={steps[0].subtitle}
+          subtitle="De tool gaat uit van nu, dus van 2026. Gebruik daarom hier uw WOZ-waarde 2026 als startpunt."
           tone="blue"
         >
           <div className="field-grid">
             <NumberField
               id="homeValue"
-              label="WOZ-waarde"
+              label="WOZ-waarde 2026"
               value={state.homeValue}
               step={1000}
               suffix="EUR"
@@ -256,13 +268,16 @@ export default function CalculatorWizard({ calculator }) {
             <p className="muted-copy">{termExplainers.childShares.body}</p>
             <div className="distribution-editor">
               {model.inputs.childShares.map((share, index) => (
-                <label
+                <div
                   className="distribution-editor__item"
                   key={`child-share-${index + 1}`}
                 >
-                  <span className="distribution-editor__label">Kind {index + 1}</span>
+                  <label className="distribution-editor__label" htmlFor={`child-share-${index}`}>
+                    Kind {index + 1}
+                  </label>
                   <div className="distribution-editor__control">
                     <input
+                      id={`child-share-${index}`}
                       type="range"
                       min="0"
                       max="100"
@@ -271,9 +286,18 @@ export default function CalculatorWizard({ calculator }) {
                     />
                     <span>{share}%</span>
                   </div>
-                </label>
+                  <label className="distribution-editor__checkbox">
+                    <input
+                      type="checkbox"
+                      checked={state.childLivesInHome?.[index] || false}
+                      onChange={(event) => actions.setChildLivesInHome(index, event.target.checked)}
+                    />
+                    <span>Woont (of gaat wonen) in de woning</span>
+                  </label>
+                </div>
               ))}
             </div>
+            <p className="muted-copy">{termExplainers.childLivesInHome.body}</p>
           </details>
 
           <div className="wizard-actions">
@@ -293,7 +317,7 @@ export default function CalculatorWizard({ calculator }) {
         <SectionCard
           eyebrow="Stap 3 van 4"
           title={steps[2].title}
-          subtitle={steps[2].subtitle}
+          subtitle="Hier bepaalt u vooral de 2026-aannames voor vrijstellingen, aktekosten en belasting bij eigendomsoverdracht."
           tone="blue"
         >
           <NumberField
@@ -312,9 +336,168 @@ export default function CalculatorWizard({ calculator }) {
             }
           />
 
+          <SegmentedControl
+            label="Bedrag voor 1 keer schenken"
+            value={state.targetTransferMode}
+            options={[
+              { label: "Automatisch invullen", value: "maxTaxFree" },
+              { label: "Zelf bedrag kiezen", value: "custom" },
+            ]}
+            explanation={termExplainers.targetTransferMode.body}
+            explanationTitle={termExplainers.targetTransferMode.title}
+            onChange={(value) => actions.setEnumField("targetTransferMode", value)}
+          />
+
+          {state.targetTransferMode === "custom" ? (
+            <>
+              <Callout title="Wat is het gunstigste bedrag?" tone="info" icon="chart">
+                <p>
+                  De grafiek hieronder toont de <strong>totale last</strong> (erfbelasting +
+                  directe kosten + box 3 + verlies hypotheekrenteaftrek) bij verschillende
+                  schenkbedragen. Het groene punt markeert het bedrag met de laagste totale last.
+                </p>
+                {optimisation.optimum ? (
+                  <p className="muted-copy">
+                    In deze invoer is het gunstigste eenmalige schenkbedrag circa{" "}
+                    <strong>{formatCurrency(optimisation.optimum.amount)}</strong> met een totale
+                    last van{" "}
+                    <strong>{formatCurrency(optimisation.optimum.totalBurden)}</strong>.
+                  </p>
+                ) : null}
+              </Callout>
+
+              <OptimalTransferChart
+                points={optimisation.points}
+                optimum={optimisation.optimum}
+                onSelect={(amount) => actions.setNumericField("targetTransferValue", amount)}
+              />
+
+              <NumberField
+                id="targetTransferValue"
+                label="Zelf gekozen bedrag voor 1 keer schenken"
+                hint="Kies zelf een bedrag of klik op de grafiek om een bedrag over te nemen."
+                value={state.targetTransferValue}
+                step={1000}
+                suffix="EUR"
+                explanation={termExplainers.targetTransferValue.body}
+                explanationTitle={termExplainers.targetTransferValue.title}
+                onChange={(value) => actions.setNumericField("targetTransferValue", value)}
+              />
+            </>
+          ) : (
+            <Callout title="Automatisch berekend bedrag" tone="success" icon="check">
+              <p>
+                De tool vult hier automatisch{" "}
+                <strong>{formatCurrency(model.overview.oneTimeTaxFreeCapacity)}</strong> in.
+              </p>
+              <p className="muted-copy">
+                Dat is in deze invoer{" "}
+                <strong>
+                  {state.childrenCount} x {formatCurrency(oneTimeExemptionPerChild)}
+                </strong>
+                : de optelsom van de vrijstelling <strong>per kind</strong>. Dit geldt alleen als
+                ieder kind afzonderlijk aan de voorwaarden voldoet.
+              </p>
+            </Callout>
+          )}
+
+          <NumberField
+            id="oneTimeTransferYear"
+            label="Jaar van de eenmalige schenking"
+            hint="Voor de route 'in 1 keer schenken'. Gebruikt u de eenmalig hogere vrijstelling, dan gebruikt de tool dit jaar ook in de jaarlijkse route."
+            value={state.oneTimeTransferYear}
+            min={model.overview.baseYear}
+            max={model.overview.lastReviewYear}
+            step={1}
+            explanation={termExplainers.oneTimeTransferYear.body}
+            explanationTitle={termExplainers.oneTimeTransferYear.title}
+            onChange={(value) =>
+              actions.setNumericField("oneTimeTransferYear", value, {
+                min: model.overview.baseYear,
+                max: model.overview.lastReviewYear,
+              })
+            }
+          />
+
+          <Callout title="Wat mag meestal belastingvrij in 2026?" tone="info" icon="help">
+            <p>
+              Ouders samen tellen voor de schenkbelasting als <strong>1 schenker</strong>. Bij{" "}
+              {state.childrenCount} {state.childrenCount === 1 ? "kind" : "kinderen"} is de gewone
+              jaarlijkse ruimte daarom meestal{" "}
+              <strong>{formatCurrency(annualFamilyExemption)}</strong> totaal per kalenderjaar.
+            </p>
+            {state.useOneOffGiftExemption ? (
+              <p className="muted-copy">
+                Gebruikt u de eenmalig hogere vrijstelling, dan rekent de tool in jaar{" "}
+                <strong>{state.oneTimeTransferYear}</strong> met{" "}
+                <strong>{formatCurrency(state.oneOffGiftExemptionPerChild)}</strong> per kind. Bij{" "}
+                {state.childrenCount} {state.childrenCount === 1 ? "kind" : "kinderen"} is dat{" "}
+                <strong>{formatCurrency(oneTimeFamilyExemption)}</strong> totaal, als ieder kind
+                afzonderlijk aan de voorwaarden voldoet. Die hogere vrijstelling vervangt dan de
+                gewone jaarlijkse vrijstelling van dat jaar.
+              </p>
+            ) : (
+              <p className="muted-copy">
+                Zonder eenmalig hogere vrijstelling rekent de tool in jaar{" "}
+                <strong>{state.oneTimeTransferYear}</strong> met{" "}
+                <strong>{formatCurrency(state.annualGiftExemptionPerChild)}</strong> per kind. Bij{" "}
+                {state.childrenCount} {state.childrenCount === 1 ? "kind" : "kinderen"} is dat{" "}
+                <strong>{formatCurrency(annualFamilyExemption)}</strong> totaal in dat kalenderjaar.
+              </p>
+            )}
+            <p className="muted-copy">
+              Schenkt u meer woningwaarde dan deze ruimte, dan kan{" "}
+              <strong>schenkbelasting</strong> ontstaan over het meerdere. Bij een woning kan
+              daarnaast ook nog <strong>overdrachtsbelasting</strong> spelen.
+            </p>
+          </Callout>
+
+          <Callout title="Wilt u 1 keer binnen de vrijstelling vergelijken?" tone="success" icon="check">
+            <p>
+              Kies dan als doelbedrag maximaal{" "}
+              <strong>{formatCurrency(oneTimeFamilyExemption)}</strong> voor jaar{" "}
+              <strong>{state.oneTimeTransferYear}</strong>.
+            </p>
+            <p className="muted-copy">
+              Dan rekent de tool die eenmalige schenking binnen de schenkbelastingvrijstelling.
+              Let op: overdrachtsbelasting, notaris en hypotheekgevolgen kunnen dan nog steeds
+              meespelen.
+            </p>
+          </Callout>
+
+          <Callout title="Wat vergelijkt de tool nu precies?" tone="info" icon="book">
+            <p>
+              De route <strong>in 1 keer schenken</strong> gebruikt{" "}
+              <strong>{formatCurrency(model.overview.plannedTransferValueTotal)}</strong> aan
+              woningwaarde in <strong>jaar {state.oneTimeTransferYear}</strong> in 1 akte.
+            </p>
+            <p className="muted-copy">
+              De route <strong>jaarlijks een deel schenken</strong> kan binnen de gekozen{" "}
+              {state.yearsToReview} jaar ongeveer{" "}
+              <strong>{formatCurrency(model.overview.annualTransferCapacity)}</strong> overdragen.
+              {model.overview.annualTransferShortfall > 0
+                ? ` Dat is dus minder dan uw gekozen doelbedrag van ${formatCurrency(
+                    model.overview.plannedTransferValueTotal,
+                  )}.`
+                : " In deze invoer haalt de jaarlijkse route het gekozen doelbedrag."}
+            </p>
+            <p className="muted-copy">
+              Van dat gekozen doelbedrag kijkt de tool eerst welk deel binnen de ingevulde
+              schenkruimte past. Alleen over het meerdere kan schenkbelasting ontstaan. De tool
+              rekent die dan mee.
+              {state.useOneOffGiftExemption
+                ? ` In jaar ${state.oneTimeTransferYear} gebruikt deze berekening in plaats daarvan ${formatCurrency(
+                    state.oneOffGiftExemptionPerChild,
+                  )} per kind, dus ${formatCurrency(oneTimeFamilyExemption)} totaal bij ${state.childrenCount} ${
+                    state.childrenCount === 1 ? "kind" : "kinderen"
+                  }, als ieder kind afzonderlijk aan de voorwaarden voldoet.`
+                : ""}
+            </p>
+          </Callout>
+
           <details className="advanced-panel">
             <summary>Geavanceerde aannames tonen</summary>
-            <div className="field-grid field-grid--family">
+            <div className="field-grid">
               <NumberField
                 id="mortgageInterestReliefRate"
                 label="Maximaal HRA-tarief"
@@ -331,8 +514,83 @@ export default function CalculatorWizard({ calculator }) {
                   })
                 }
               />
+              <NumberField
+                id="annualGiftExemptionPerChild"
+                label="Jaarlijkse vrijstelling per kind"
+                value={state.annualGiftExemptionPerChild}
+                step={1}
+                suffix="EUR"
+                explanation={termExplainers.annualGiftExemption.body}
+                explanationTitle={termExplainers.annualGiftExemption.title}
+                onChange={(value) =>
+                  actions.setNumericField("annualGiftExemptionPerChild", value)
+                }
+              />
+              <NumberField
+                id="oneOffGiftExemptionPerChild"
+                label="Eenmalig hogere vrijstelling per kind"
+                value={state.oneOffGiftExemptionPerChild}
+                step={1}
+                suffix="EUR"
+                explanation={termExplainers.oneOffGiftExemption.body}
+                explanationTitle={termExplainers.oneOffGiftExemption.title}
+                onChange={(value) =>
+                  actions.setNumericField("oneOffGiftExemptionPerChild", value)
+                }
+              />
+              <NumberField
+                id="transferTaxRate"
+                label="Overdrachtsbelasting"
+                hint="Standaard 10,4% als kinderen de woning niet zelf gaan bewonen. Woont het kind er wel, dan rekent de tool met 2%."
+                value={state.transferTaxRate}
+                step={0.1}
+                suffix="%"
+                explanation={termExplainers.transferTaxRate.body}
+                explanationTitle={termExplainers.transferTaxRate.title}
+                onChange={(value) =>
+                  actions.setNumericField("transferTaxRate", value, {
+                    min: 0,
+                    max: 20,
+                  })
+                }
+              />
+              <NumberField
+                id="notaryCostPerTransfer"
+                label="Notariskosten per overdrachtsakte"
+                hint="Aanpasbare werkhypothese. Vraag voor een echte overdracht altijd een offerte op."
+                value={state.notaryCostPerTransfer}
+                step={50}
+                suffix="EUR"
+                explanation={termExplainers.notaryCostPerTransfer.body}
+                explanationTitle={termExplainers.notaryCostPerTransfer.title}
+                onChange={(value) =>
+                  actions.setNumericField("notaryCostPerTransfer", value)
+                }
+              />
             </div>
+
+            <SegmentedControl
+              label={`Eenmalig hogere vrijstelling gebruiken in jaar ${state.oneTimeTransferYear}`}
+              value={String(state.useOneOffGiftExemption)}
+              options={[
+                { label: "Nee", value: "false" },
+                { label: "Ja", value: "true" },
+              ]}
+              explanation={termExplainers.useOneOffGiftExemption.body}
+              explanationTitle={termExplainers.useOneOffGiftExemption.title}
+              onChange={(value) =>
+                actions.setBooleanField("useOneOffGiftExemption", value === "true")
+              }
+            />
           </details>
+
+          {state.mortgageBalance > 0 ? (
+            <Callout title="Let op bij een lopende hypotheek" tone="warning" icon="alert">
+              Bij echte eigendomsoverdracht van een woning met hypotheek is vaak ook de bank aan
+              zet. Deze tool rekent dat niet juridisch uit, maar laat alleen een eerste financiële
+              vergelijking zien.
+            </Callout>
+          ) : null}
 
           <Callout title="Twijfelt u over een veld?" tone="info" icon="help">
             Laat onzekere geavanceerde aannames op de standaardwaarde staan. De tool is vooral
@@ -357,7 +615,7 @@ export default function CalculatorWizard({ calculator }) {
           <SectionCard
             eyebrow="Stap 4 van 4"
             title="Hoofduitkomst"
-            subtitle="Dit is geen advies, maar wel een duidelijke eerste richting binnen deze vereenvoudigde vergelijking."
+            subtitle="Dit is geen advies, maar wel een duidelijke eerste richting voor het schenken van woningeigendom binnen deze vereenvoudigde vergelijking."
             tone="green"
           >
             <Callout
@@ -372,6 +630,11 @@ export default function CalculatorWizard({ calculator }) {
               <p className="muted-copy">
                 U bekijkt nu <strong>{selectedScenario.title.toLowerCase()}</strong>. Kies hieronder
                 gerust een andere route om te vergelijken.
+              </p>
+              <p className="muted-copy">
+                Deze vergelijking gebruikt een doelbedrag van{" "}
+                <strong>{formatCurrency(model.overview.plannedTransferValueTotal)}</strong> aan
+                woningwaarde.
               </p>
             </Callout>
 
@@ -401,8 +664,10 @@ export default function CalculatorWizard({ calculator }) {
             <div className="faq-list">
               {[
                 termExplainers.mortgageInterestReliefRate,
-                termExplainers.stak,
-                termExplainers.paperGift,
+                termExplainers.oneTimeTransfer,
+                termExplainers.annualTransfer,
+                termExplainers.transferTaxRate,
+                termExplainers.notaryCostPerTransfer,
                 termExplainers.box3,
               ].map((item) => (
                 <AccordionItem key={item.title} title={item.title}>

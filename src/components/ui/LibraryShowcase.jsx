@@ -48,7 +48,7 @@ export default function LibraryShowcase() {
             <h3>Stat-tiles</h3>
             <div className="stat-grid">
               <StatTile label="Verwachte overwaarde" value={formatCurrency(761000)} />
-              <StatTile label="Papieren rente per jaar" value={formatCurrency(9580)} tone="amber" />
+              <StatTile label="Aktekosten route" value={formatCurrency(3900)} tone="amber" />
               <StatTile label="Verlies HRA" value={formatCurrency(16740)} tone="red" />
             </div>
           </div>
@@ -76,7 +76,7 @@ export default function LibraryShowcase() {
               <KeyValueList
                 rows={[
                   { label: "Directe lasten", value: formatCurrency(62100) },
-                  { label: "Jaarlijkse rente", value: formatCurrency(9540), tone: "amber" },
+                  { label: "Overdrachtsbelasting", value: formatCurrency(9540), tone: "amber" },
                   {
                     label: "Verwachte netto uitkomst",
                     value: formatCurrency(314000),
