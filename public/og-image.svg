@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#154a76"/>
+      <stop offset="100%" stop-color="#103a63"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- House icon -->
+  <g transform="translate(100, 160)" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 48 L40 16 L76 48"/>
+    <rect x="12" y="48" width="56" height="40" rx="2"/>
+    <rect x="30" y="62" width="20" height="26"/>
+  </g>
+  <!-- Text -->
+  <text x="100" y="300" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="52" font-weight="700">Woning schenken aan kinderen</text>
+  <text x="100" y="360" fill="#eaf4fa" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="400">Bereken erfbelasting, schenkbelasting &amp; overdrachtsbelasting</text>
+  <text x="100" y="410" fill="#b9c4cf" font-family="Segoe UI, Arial, sans-serif" font-size="22">Vergelijk 3 routes met actuele 2026-tarieven</text>
+  <!-- Brand -->
+  <text x="100" y="530" fill="#69788a" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700">Huisoverdrachtgids</text>
+  <text x="100" y="560" fill="#69788a" font-family="Segoe UI, Arial, sans-serif" font-size="16">Gratis rekentool  |  Geen advies  |  Wel een duidelijke eerste richting</text>
+</svg>
