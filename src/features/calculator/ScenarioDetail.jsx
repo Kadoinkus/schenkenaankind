@@ -363,35 +363,6 @@ export default function ScenarioDetail({ selectedScenarioId, model }) {
         </div>
       </div>
 
-      <div className="stat-grid">
-        <div className="metric-banner metric-banner--blue">
-          <ExplainedLabel
-            label="Directe lasten in de vergelijking"
-            explanation={termExplainers.directBurden.body}
-            explanationTitle={termExplainers.directBurden.title}
-          />
-          <strong>{formatCurrency(scenario.directBurden)}</strong>
-        </div>
-        <div className="metric-banner metric-banner--neutral">
-          <ExplainedLabel
-            label="Alleen erfbelasting op resterende nalatenschap"
-            explanation={termExplainers.inheritanceTaxOnly.body}
-            explanationTitle={termExplainers.inheritanceTaxOnly.title}
-          />
-          <strong>{formatCurrency(scenario.inheritanceTaxOnly)}</strong>
-        </div>
-        {selectedScenarioId !== "doNothing" ? (
-          <div className="metric-banner metric-banner--blue">
-            <ExplainedLabel
-              label="Al naar kinderen verschoven bij peilmoment"
-              explanation={termExplainers.giftedValueAtReview.body}
-              explanationTitle={termExplainers.giftedValueAtReview.title}
-            />
-            <strong>{formatCurrency(scenario.giftedValueAtReview)}</strong>
-          </div>
-        ) : null}
-      </div>
-
       {selectedScenarioId === "oneTimeTransfer" ? (
         <Callout title="Extra aandacht" tone="warning" icon="alert">
           In deze route rekent de tool met 1 grotere eigendomsoverdracht in jaar{" "}
@@ -419,14 +390,6 @@ export default function ScenarioDetail({ selectedScenarioId, model }) {
           )}
         </Callout>
       ) : null}
-
-      <Callout title="Hoe leest u het totaal?" tone="info" icon="book">
-        Het grote totaal <strong>{formatCurrency(scenario.directBurden)}</strong> bestaat uit de{" "}
-        <strong>erfbelasting op het resterende deel</strong> plus, als er tijdens leven wordt
-        overgedragen, eventuele <strong>overdrachtsbelasting</strong>,{" "}
-        <strong>schenkbelasting</strong> en <strong>notariskosten</strong>. Box 3 en
-        hypotheekrenteaftrek staan hieronder apart en zitten niet in dat totaal.
-      </Callout>
 
       <div className="detail-section">
         <div className="detail-section__header">

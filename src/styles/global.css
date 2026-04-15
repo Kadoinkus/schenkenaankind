@@ -2196,6 +2196,43 @@ input {
   max-width: 70ch;
 }
 
+.results-headline {
+  display: flex;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+  padding: var(--space-4);
+  background: var(--color-brand-050);
+  border: 1px solid var(--color-ink-200);
+  border-radius: var(--radius-sm);
+}
+
+.results-headline__best,
+.results-headline__saving {
+  display: grid;
+  gap: 2px;
+}
+
+.results-headline__label {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-ink-500);
+}
+
+.results-headline__value {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-brand-900);
+  line-height: 1.2;
+}
+
+.results-headline__route {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-success-700);
+}
+
 .stat-tile {
   border: 1px solid var(--color-ink-200);
   background: var(--color-brand-050);

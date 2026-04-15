@@ -95,7 +95,16 @@ function SummaryCard({ eyebrow, title, value, note, tone = "default" }) {
 
 export default function CalculatorWizard({ calculator, premiumAccess }) {
   const { state, model, actions, mortgageTypes } = calculator;
-  const [stepIndex, setStepIndex] = useState(0);
+  const [stepIndex, setStepIndexRaw] = useState(0);
+
+  function setStepIndex(next) {
+    setStepIndexRaw(next);
+    // Scroll to top of the calculator when changing steps.
+    requestAnimationFrame(() => {
+      const el = document.getElementById("berekening");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
   const [promoCode, setPromoCode] = useState("");
   const [promoResult, setPromoResult] = useState(null);
   const [promoFeedback, setPromoFeedback] = useState(null);
@@ -991,54 +1000,26 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
             }`.trim()}
             aria-hidden={isPremiumLocked}
           >
-            <section className="results-spotlight">
-              <div className="results-spotlight__main">
-                <p className="intro-band__eyebrow">Stap 4 van 4</p>
-                <h2>Uw eerste vergelijking staat klaar</h2>
-                <p>
-                  U ziet hieronder eerst de hoofdlijn. Daarna kunt u per route rustig openen waar
-                  de bedragen vandaan komen.
-                </p>
-              </div>
-              <div className="summary-grid">
-                <SummaryCard
-                  eyebrow="Laagste directe lasten"
-                  title={bestScenario.title}
-                  value={formatCurrency(model.scenarios[bestScenarioId].directBurden)}
-                  note={`Peilmoment ${reviewYear}.`}
-                  tone="success"
-                />
-                <SummaryCard
-                  eyebrow="Mogelijke besparing"
-                  title="Ten opzichte van niets doen"
-                  value={
-                    premiumOffer.hasEstimatedSaving
-                      ? formatCurrency(premiumOffer.estimatedSaving)
-                      : "Geen"
-                  }
-                  note={
-                    premiumOffer.hasEstimatedSaving
-                      ? "Zichtbaar zonder meteen de volledige verdieping te openen."
-                      : "In deze invoer ligt er geen lagere route dan niets doen."
-                  }
-                  tone="info"
-                />
-                <SummaryCard
-                  eyebrow="Vergelijking gebruikt"
-                  title="Woningwaarde om te schenken"
-                  value={formatCurrency(model.overview.plannedTransferValueTotal)}
-                  note={`U bekijkt nu ${selectedScenario.title.toLowerCase()}.`}
-                  tone="default"
-                />
-              </div>
-            </section>
-
             <SectionCard
-              eyebrow="Hoofduitkomst"
-              title="Kies een route en open daarna de opbouw"
-              subtitle="Directe lasten bestaan hier uit erfbelasting op het resterende deel plus, als u tijdens leven overdraagt, overdrachtsbelasting, schenkbelasting en notariskosten."
+              eyebrow="Stap 4 van 4"
+              title="Uw uitkomst"
+              subtitle="Hieronder ziet u wat de drie routes in deze invoer aan directe lasten opleveren. Kies een route om de opbouw te bekijken."
               tone="green"
             >
+              <div className="results-headline">
+                <div className="results-headline__best">
+                  <p className="results-headline__label">Laagste directe lasten</p>
+                  <p className="results-headline__value">{formatCurrency(model.scenarios[bestScenarioId].directBurden)}</p>
+                  <p className="results-headline__route">{bestScenario.title}</p>
+                </div>
+                {premiumOffer.hasEstimatedSaving ? (
+                  <div className="results-headline__saving">
+                    <p className="results-headline__label">Mogelijke besparing t.o.v. niets doen</p>
+                    <p className="results-headline__value">{formatCurrency(premiumOffer.estimatedSaving)}</p>
+                  </div>
+                ) : null}
+              </div>
+
               {premiumAccess.message ? (
                 <Callout
                   title={premiumAccess.message.title}
@@ -1046,15 +1027,6 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
                   icon={premiumAccess.message.tone === "success" ? "check" : "alert"}
                 >
                   <p>{premiumAccess.message.body}</p>
-                </Callout>
-              ) : null}
-
-              {premiumAccess.isUnlocked ? (
-                <Callout title="Uitgebreid rapport actief" tone="success" icon="check">
-                  <p>
-                    Uw uitgebreide rapport is al vrijgeschakeld op dit apparaat. U kunt hieronder de
-                    volledige details openen en als PDF bewaren.
-                  </p>
                 </Callout>
               ) : null}
 
