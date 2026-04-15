@@ -9,18 +9,13 @@ import { termExplainers } from "../../content/copy.js";
 export default function PremiumReport({ state, model }) {
   return (
     <>
-      <SectionCard
-        eyebrow="Uitgebreid rapport"
-        title="Volledige verdieping"
-        subtitle="Hier ziet u de volledige opbouw per route, alle uitleg per bedrag en een tijdlijn die u kunt bewaren voor uw vervolggesprek."
-      >
-        <Callout title="Rapport vrijgeschakeld" tone="success" icon="check">
-          <p>
-            U ziet nu de uitgebreide details van de gekozen route. Gebruik de printfunctie om dit
-            scherm als PDF te bewaren.
-          </p>
-        </Callout>
+      <ScenarioDetail selectedScenarioId={state.selectedScenarioId} model={model} />
 
+      <SectionCard
+        eyebrow="Bewaren"
+        title="Rapport opslaan als PDF"
+        subtitle="Gebruik de knop hieronder om dit scherm als PDF te bewaren voor uw vervolggesprek met een notaris of adviseur."
+      >
         <div className="wizard-actions wizard-actions--spread">
           <Button tone="primary" onClick={() => window.print()}>
             <Icon name="fileText" size={16} />
@@ -28,8 +23,6 @@ export default function PremiumReport({ state, model }) {
           </Button>
         </div>
       </SectionCard>
-
-      <ScenarioDetail selectedScenarioId={state.selectedScenarioId} model={model} />
 
       <SectionCard
         eyebrow="Begrippen uitgelegd"
