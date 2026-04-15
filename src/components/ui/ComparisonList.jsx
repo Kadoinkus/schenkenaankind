@@ -21,6 +21,7 @@ export default function ComparisonList({
             key={item.id}
             type="button"
             className={`comparison-card ${isSelected ? "is-selected" : ""}`.trim()}
+            aria-pressed={isSelected}
             onClick={() => onSelect(item.id)}
           >
             <div className="comparison-card__top">

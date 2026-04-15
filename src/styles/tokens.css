@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
 :root {
   --color-brand-900: #103a63;
   --color-brand-800: #154a76;
@@ -21,13 +23,13 @@
   --color-danger-700: #b23a2f;
   --color-danger-100: #fdebea;
 
-  --font-family-base: "Segoe UI", Arial, Helvetica, sans-serif;
+  --font-family-base: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
 
-  --shadow-soft: 0 8px 24px rgba(16, 58, 99, 0.08);
+  --shadow-soft: 0 18px 40px rgba(16, 58, 99, 0.08);
   --shadow-line: 0 1px 0 rgba(16, 58, 99, 0.08);
 
-  --radius-sm: 4px;
-  --radius-md: 6px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
 
   --space-1: 4px;
   --space-2: 8px;
@@ -38,5 +40,5 @@
   --space-7: 32px;
   --space-8: 40px;
 
-  --content-width: 1160px;
+  --content-width: 1180px;
 }

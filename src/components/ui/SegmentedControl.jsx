@@ -17,6 +17,7 @@ export default function SegmentedControl({
           <Button
             key={option.value}
             active={value === option.value}
+            aria-pressed={value === option.value}
             onClick={() => onChange(option.value)}
           >
             {option.label}

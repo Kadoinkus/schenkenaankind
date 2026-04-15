@@ -4,6 +4,8 @@ import {
   mortgageTypes,
 } from "../src/domain/calculateTransferScenarios.js";
 import { taxRules2026 } from "../src/domain/taxRules2026.js";
+import { evaluatePromoCode } from "../src/features/premium/premiumPricing.js";
+import { derivePremiumOffer } from "../src/features/premium/premiumOffer.js";
 
 function run(name, fn) {
   try {
@@ -163,4 +165,37 @@ run("eenmalige schenking gebeurt pas in het gekozen jaar", () => {
 
   assert.equal(result.scenarios.oneTimeTransfer.timeline[2].giftedValueAtYear, 0);
   assert.ok(result.scenarios.oneTimeTransfer.timeline[3].giftedValueAtYear > 0);
+});
+
+run("altijd werkende kortingscode kan het premium rapport gratis maken", () => {
+  const result = evaluatePromoCode("huis2026");
+
+  assert.equal(result.valid, true);
+  assert.equal(result.finalPriceMinor, 0);
+  assert.ok(result.discountMinor > 0);
+});
+
+run("premium offer berekent besparing ten opzichte van niets doen", () => {
+  const model = calculateTransferScenarios({
+    homeValue: 700000,
+    mortgageBalance: 175000,
+    mortgageInterestRate: 3.5,
+    monthlyMortgageCost: 900,
+    mortgageType: mortgageTypes.interestOnly,
+    childrenCount: 2,
+    yearsToReview: 10,
+    hasPartner: false,
+    childShares: [50, 50],
+    annualGrowthRate: 3,
+    mortgageInterestReliefRate: 36.93,
+    partnerSharePercent: 0,
+    targetTransferMode: "custom",
+    targetTransferValue: 50000,
+  });
+
+  const offer = derivePremiumOffer(model);
+
+  assert.equal(offer.baselineScenarioId, "doNothing");
+  assert.ok(offer.estimatedSaving >= 0);
+  assert.equal(offer.summaryBullets.length, 3);
 });

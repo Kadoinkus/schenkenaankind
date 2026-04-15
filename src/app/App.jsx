@@ -5,6 +5,7 @@ import LibraryShowcase from "../components/ui/LibraryShowcase.jsx";
 import HomePage from "./HomePage.jsx";
 import CalculatorWizard from "../features/calculator/CalculatorWizard.jsx";
 import { useTransferCalculator } from "../features/calculator/useTransferCalculator.js";
+import { usePremiumAccess } from "../features/premium/usePremiumAccess.js";
 
 function getRoute() {
   if (window.location.hash === "#bibliotheek") {
@@ -33,20 +34,20 @@ function useHashRoute() {
 export default function App() {
   const route = useHashRoute();
   const calculator = useTransferCalculator();
+  const premiumAccess = usePremiumAccess();
 
   useEffect(() => {
     if (route === "calculator") {
-      document.title = "Berekening maken | Huisoverdrachtgids";
+      document.title = "Berekening maken | schenkenaankind.nl";
       return;
     }
 
     if (route === "library") {
-      document.title = "Componentbibliotheek | Huisoverdrachtgids";
+      document.title = "Componentbibliotheek | schenkenaankind.nl";
       return;
     }
 
-    document.title =
-      "Woning overdragen aan kinderen berekenen | Huisoverdrachtgids";
+    document.title = "Woning schenken aan kinderen berekenen | schenkenaankind.nl";
   }, [route]);
 
   return (
@@ -54,8 +55,7 @@ export default function App() {
       <header className="site-header">
         <div className="site-header__inner">
           <a className="brand-mark" href="#">
-            <span className="brand-mark__block" aria-hidden="true" />
-            <span>
+            <span className="brand-mark__text">
               <strong>{appCopy.brand}</strong>
               <small>{appCopy.eyebrow}</small>
             </span>
@@ -77,15 +77,20 @@ export default function App() {
       <main className="site-main">
         {route === "library" ? <LibraryShowcase /> : null}
         {route === "home" ? <HomePage /> : null}
-        {route === "calculator" ? <CalculatorWizard calculator={calculator} /> : null}
+        {route === "calculator" ? (
+          <CalculatorWizard calculator={calculator} premiumAccess={premiumAccess} />
+        ) : null}
       </main>
 
       <footer className="site-footer">
         <div className="site-footer__inner">
-          <p>
-            {appCopy.disclaimer} Laatst gecontroleerd op {formatDate(appCopy.reviewedOn)}.
+          <div className="site-footer__brand">
+            <strong>{appCopy.brand}</strong>
+            <p>{appCopy.footerNote}</p>
+          </div>
+          <p className="site-footer__meta">
+            Laatst bijgewerkt op {formatDate(appCopy.reviewedOn)}.
           </p>
-          <a href="#bibliotheek">Interne componentbibliotheek</a>
         </div>
       </footer>
     </div>

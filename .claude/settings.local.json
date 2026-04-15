@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node tests/run-tests.js)",
+      "Bash(node --input-type=module -e ' *)",
+      "Bash(npx vite *)"
+    ]
+  }
+}

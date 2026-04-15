@@ -1,0 +1,102 @@
+
+> huisoverdracht@0.1.0 dev
+> vite
+
+
+  [32m[1mVITE[22m v7.3.2[39m  [2mready in [0m[1m196[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m4173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m9:23:08 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m9:23:20 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m9:23:28 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx, /src/app/HomePage.jsx, /src/features/calculator/CalculatorWizard.jsx, /src/features/calculator/ScenarioComparison.jsx, /src/features/calculator/ScenarioDetail.jsx[22m
+[2m9:23:41 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m9:23:45 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m9:24:00 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m9:25:06 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx, /src/app/HomePage.jsx, /src/features/calculator/CalculatorWizard.jsx, /src/features/calculator/ScenarioComparison.jsx, /src/features/calculator/ScenarioDetail.jsx[22m
+[2m9:25:19 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m9:28:13 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m9:28:22 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx, /src/app/HomePage.jsx, /src/features/calculator/CalculatorWizard.jsx, /src/features/calculator/ScenarioComparison.jsx, /src/features/calculator/ScenarioDetail.jsx[22m
+[2m9:28:26 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx, /src/app/HomePage.jsx, /src/features/calculator/CalculatorWizard.jsx, /src/features/calculator/ScenarioComparison.jsx, /src/features/calculator/ScenarioDetail.jsx[22m
+[2m9:28:42 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m9:28:51 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m9:29:10 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m9:29:32 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m9:29:38 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/ScenarioComparison.jsx[22m
+[2m9:29:42 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/ScenarioDetail.jsx[22m
+[2m9:32:31 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m9:32:46 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m9:32:52 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m9:33:00 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx, /src/app/HomePage.jsx, /src/features/calculator/CalculatorWizard.jsx, /src/features/calculator/ScenarioComparison.jsx, /src/features/calculator/ScenarioDetail.jsx[22m
+[2m9:33:07 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m9:33:39 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m9:34:04 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m9:38:02 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m9:38:06 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m9:38:28 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m9:38:32 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx, /src/app/HomePage.jsx, /src/features/calculator/CalculatorWizard.jsx, /src/features/calculator/ScenarioComparison.jsx, /src/features/calculator/ScenarioDetail.jsx[22m
+[2m9:38:47 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m9:42:11 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m9:42:14 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx, /src/app/HomePage.jsx, /src/features/calculator/CalculatorWizard.jsx, /src/features/calculator/ScenarioComparison.jsx, /src/features/calculator/ScenarioDetail.jsx[22m
+[2m9:45:30 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/ScenarioComparison.jsx[22m
+[2m9:45:52 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/ScenarioDetail.jsx[22m
+[2m9:50:26 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/ui/KeyValueList.jsx[22m
+[2m9:50:33 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/ui/DataTable.jsx[22m
+[2m9:51:03 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx, /src/app/HomePage.jsx, /src/features/calculator/CalculatorWizard.jsx, /src/features/calculator/ScenarioComparison.jsx, /src/features/calculator/ScenarioDetail.jsx[22m
+[2m9:51:54 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/ScenarioDetail.jsx[22m
+[2m9:52:02 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles/global.css[22m
+[2m9:55:01 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/ScenarioDetail.jsx[22m
+[2m9:55:07 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx, /src/app/HomePage.jsx, /src/features/calculator/CalculatorWizard.jsx, /src/features/calculator/ScenarioComparison.jsx, /src/features/calculator/ScenarioDetail.jsx[22m
+[2m9:55:50 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m9:56:38 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles/global.css[22m
+[2m10:08:44 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:08:48 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:08:56 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:09:13 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:09:25 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:09:38 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:09:48 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:10:00 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:10:08 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:10:14 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:10:22 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx, /src/app/HomePage.jsx, /src/features/calculator/CalculatorWizard.jsx, /src/features/calculator/ScenarioComparison.jsx, /src/features/calculator/ScenarioDetail.jsx[22m
+[2m10:14:32 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:17:22 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:17:29 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:17:43 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:18:00 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:18:07 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:18:23 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:18:35 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:18:44 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:18:53 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:18:58 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:19:06 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:19:18 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m10:19:26 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m10:19:35 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx, /src/app/HomePage.jsx, /src/features/calculator/CalculatorWizard.jsx, /src/features/calculator/ScenarioComparison.jsx, /src/features/calculator/ScenarioDetail.jsx[22m
+[2m10:19:54 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles/global.css[22m
+[2m10:22:48 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:23:52 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles/global.css[22m
+[2m10:24:06 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m10:24:16 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m10:24:32 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m10:27:06 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:27:34 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:27:40 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:27:46 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:27:54 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m10:28:16 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/ScenarioDetail.jsx[22m
+[2m10:28:21 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles/global.css[22m
+[2m10:28:30 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx, /src/app/HomePage.jsx, /src/features/calculator/CalculatorWizard.jsx, /src/features/calculator/ScenarioComparison.jsx, /src/features/calculator/ScenarioDetail.jsx[22m
+[2m10:32:15 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m10:32:46 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m10:46:15 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx, /src/components/ui/LibraryShowcase.jsx, /src/features/calculator/CalculatorWizard.jsx, /src/features/calculator/ScenarioComparison.jsx, /src/features/calculator/ScenarioDetail.jsx, /src/components/ui/ComparisonList.jsx[22m
+[2m10:46:59 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx[22m
+[2m10:47:09 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/App.jsx, /src/app/HomePage.jsx, /src/features/calculator/CalculatorWizard.jsx, /src/features/calculator/ScenarioComparison.jsx, /src/features/calculator/ScenarioDetail.jsx[22m
+[2m10:47:29 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/app/HomePage.jsx[22m
+[2m10:48:22 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/features/calculator/CalculatorWizard.jsx[22m
+[2m10:49:19 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles/global.css[22m
+[2m10:49:32 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles/global.css[22m
+[2m10:49:37 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles/global.css[22m
+[2m10:50:20 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mindex.html[22m

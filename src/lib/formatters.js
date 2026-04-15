@@ -16,6 +16,15 @@ export function formatCurrency(value) {
   }).format(Math.round(value));
 }
 
+export function formatMinorCurrency(valueInMinor) {
+  return new Intl.NumberFormat("nl-NL", {
+    style: "currency",
+    currency: "EUR",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format((Number(valueInMinor) || 0) / 100);
+}
+
 export function formatPercent(value, digits = 0) {
   return new Intl.NumberFormat("nl-NL", {
     minimumFractionDigits: digits,

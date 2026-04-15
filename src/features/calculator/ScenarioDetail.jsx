@@ -363,6 +363,35 @@ export default function ScenarioDetail({ selectedScenarioId, model }) {
         </div>
       </div>
 
+      <div className="stat-grid">
+        <div className="metric-banner metric-banner--blue">
+          <ExplainedLabel
+            label="Directe lasten in de vergelijking"
+            explanation={termExplainers.directBurden.body}
+            explanationTitle={termExplainers.directBurden.title}
+          />
+          <strong>{formatCurrency(scenario.directBurden)}</strong>
+        </div>
+        <div className="metric-banner metric-banner--neutral">
+          <ExplainedLabel
+            label="Alleen erfbelasting op resterende nalatenschap"
+            explanation={termExplainers.inheritanceTaxOnly.body}
+            explanationTitle={termExplainers.inheritanceTaxOnly.title}
+          />
+          <strong>{formatCurrency(scenario.inheritanceTaxOnly)}</strong>
+        </div>
+        {selectedScenarioId !== "doNothing" ? (
+          <div className="metric-banner metric-banner--blue">
+            <ExplainedLabel
+              label="Al naar kinderen verschoven bij peilmoment"
+              explanation={termExplainers.giftedValueAtReview.body}
+              explanationTitle={termExplainers.giftedValueAtReview.title}
+            />
+            <strong>{formatCurrency(scenario.giftedValueAtReview)}</strong>
+          </div>
+        ) : null}
+      </div>
+
       {selectedScenarioId === "oneTimeTransfer" ? (
         <Callout title="Extra aandacht" tone="warning" icon="alert">
           In deze route rekent de tool met 1 grotere eigendomsoverdracht in jaar{" "}
@@ -399,6 +428,11 @@ export default function ScenarioDetail({ selectedScenarioId, model }) {
         hypotheekrenteaftrek staan hieronder apart en zitten niet in dat totaal.
       </Callout>
 
+      <div className="detail-section">
+        <div className="detail-section__header">
+          <h3>Kosten en neveneffecten</h3>
+          <p>Hier ziet u eerst de opbouw van het totaal en daaronder de bedragen die apart blijven staan.</p>
+        </div>
       <div className="detail-grid">
         <article className="detail-card">
           <div className="detail-card__header">
@@ -412,6 +446,7 @@ export default function ScenarioDetail({ selectedScenarioId, model }) {
           </div>
           <KeyValueList rows={buildSideEffectRows(selectedScenarioId, scenario)} />
         </article>
+      </div>
       </div>
 
       {scenario.partnerDetailAtReview ? (
@@ -446,6 +481,11 @@ export default function ScenarioDetail({ selectedScenarioId, model }) {
         </div>
       ) : null}
 
+      <div className="detail-section">
+        <div className="detail-section__header">
+          <h3>Uitsplitsing per kind</h3>
+          <p>Per kind ziet u wat al is geschonken, wat later nog uit de nalatenschap komt en welke lasten daarbij horen.</p>
+        </div>
       <div className="detail-grid">
         {scenario.children.map((child) => (
           <article className="detail-card" key={child.id}>
@@ -524,42 +564,20 @@ export default function ScenarioDetail({ selectedScenarioId, model }) {
           </article>
         ))}
       </div>
-
-      <div className="stat-grid">
-        <div className="metric-banner metric-banner--blue">
-          <ExplainedLabel
-            label="Directe lasten in de vergelijking"
-            explanation={termExplainers.directBurden.body}
-            explanationTitle={termExplainers.directBurden.title}
-          />
-          <strong>{formatCurrency(scenario.directBurden)}</strong>
-        </div>
-        <div className="metric-banner metric-banner--neutral">
-          <ExplainedLabel
-            label="Alleen erfbelasting op resterende nalatenschap"
-            explanation={termExplainers.inheritanceTaxOnly.body}
-            explanationTitle={termExplainers.inheritanceTaxOnly.title}
-          />
-          <strong>{formatCurrency(scenario.inheritanceTaxOnly)}</strong>
-        </div>
-        {selectedScenarioId !== "doNothing" ? (
-          <div className="metric-banner metric-banner--blue">
-            <ExplainedLabel
-              label="Al naar kinderen verschoven bij peilmoment"
-              explanation={termExplainers.giftedValueAtReview.body}
-              explanationTitle={termExplainers.giftedValueAtReview.title}
-            />
-            <strong>{formatCurrency(scenario.giftedValueAtReview)}</strong>
-          </div>
-        ) : null}
       </div>
 
+      <div className="detail-section">
+        <div className="detail-section__header">
+          <h3>Tijdlijn per jaar</h3>
+          <p>Gebruik deze tabel als u wilt zien hoe de uitkomst opschuift wanneer het peilmoment later valt.</p>
+        </div>
       <DataTable
         title="Tijdlijn per jaar"
         columns={timelineConfig.columns}
         rows={timelineConfig.rows}
         footer={timelineConfig.footer}
       />
+      </div>
     </SectionCard>
   );
 }

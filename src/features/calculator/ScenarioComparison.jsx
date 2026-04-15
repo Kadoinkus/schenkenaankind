@@ -43,8 +43,31 @@ export default function ScenarioComparison({ state, model, actions }) {
     <SectionCard
       eyebrow="Vergelijk routes"
       title="Vergelijking"
-      subtitle="Kies hieronder een route. U ziet per paneel de directe lasten en opent daarna de details met de opbouw uit erfbelasting, overdrachtsbelasting, schenkbelasting en notariskosten."
+      subtitle="Kies hieronder een route. Eerst ziet u de hoofdlijn; daarna opent u de details met de volledige kostenopbouw."
     >
+      <div className="summary-grid">
+        <article className="summary-card summary-card--default">
+          <p className="summary-card__eyebrow">Peilmoment</p>
+          <h3 className="summary-card__title">Laatste jaar in de vergelijking</h3>
+          <strong className="summary-card__value">{model.overview.lastReviewYear}</strong>
+          <p className="summary-card__note">De tool rekent vanaf {model.overview.baseYear} naar dit jaar toe.</p>
+        </article>
+        <article className="summary-card summary-card--info">
+          <p className="summary-card__eyebrow">Doelbedrag</p>
+          <h3 className="summary-card__title">Woningwaarde om te schenken</h3>
+          <strong className="summary-card__value">
+            {formatCurrency(model.overview.plannedTransferValueTotal)}
+          </strong>
+          <p className="summary-card__note">Dit bedrag gebruikt de tool als vergelijkingsbasis.</p>
+        </article>
+        <article className="summary-card summary-card--success">
+          <p className="summary-card__eyebrow">Beste eerste richting</p>
+          <h3 className="summary-card__title">{bestItem.title}</h3>
+          <strong className="summary-card__value">{formatCurrency(bestItem.value)}</strong>
+          <p className="summary-card__note">Laagste directe lasten binnen deze invoer.</p>
+        </article>
+      </div>
+
       <ComparisonList
         items={comparisonItems}
         selectedId={state.selectedScenarioId}
