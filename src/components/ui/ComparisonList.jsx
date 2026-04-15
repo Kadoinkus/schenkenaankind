@@ -50,11 +50,6 @@ export default function ComparisonList({
                 </span>
               )}
             </div>
-
-            <div className="comparison-card__footer">
-              <span>Bekijk details</span>
-              <Icon name="chevronRight" size={16} />
-            </div>
           </button>
         );
       })}

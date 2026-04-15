@@ -1,4 +1,5 @@
 import { formatCurrency } from "../../lib/formatters.js";
+import AccordionItem from "../../components/ui/AccordionItem.jsx";
 import Badge from "../../components/ui/Badge.jsx";
 import Callout from "../../components/ui/Callout.jsx";
 import DataTable from "../../components/ui/DataTable.jsx";
@@ -315,6 +316,8 @@ export default function ScenarioDetail({ selectedScenarioId, model }) {
   const meta = scenarioMetaById[selectedScenarioId];
   const scenario = model.scenarios[selectedScenarioId];
   const timelineConfig = buildTimelineConfig(selectedScenarioId, model);
+  const differenceVsDoNothing =
+    model.scenarios.doNothing.directBurden - scenario.directBurden;
   const annualTransferMoments = model.scenarios.annualTransfer.timeline.filter(
     (row) => row.transferredThisYear > 0,
   );
@@ -331,34 +334,16 @@ export default function ScenarioDetail({ selectedScenarioId, model }) {
     <SectionCard
       eyebrow="Detail per route"
       title={meta.title}
-      subtitle={meta.summary}
+      subtitle="Eerst de hoofdlijn. Open details alleen als u verder wilt kijken."
       tone={meta.tone}
       actions={<Badge tone={meta.tone}>{meta.shortLabel}</Badge>}
     >
-      <div className="scenario-header">
+      <div className="scenario-header scenario-header--simple">
         <div className="scenario-header__lead">
           <Icon name={meta.icon} size={22} />
           <div>
             <p>{meta.suitableFor}</p>
             <p className="muted-copy">{meta.watchout}</p>
-          </div>
-        </div>
-        <div className="scenario-header__stats">
-          <div>
-            <ExplainedLabel
-              label="Directe lasten"
-              explanation={termExplainers.directBurden.body}
-              explanationTitle={termExplainers.directBurden.title}
-            />
-            <strong>{formatCurrency(scenario.directBurden)}</strong>
-          </div>
-          <div>
-            <ExplainedLabel
-              label="Waarvan akten en belastingen nu"
-              explanation={termExplainers.directCosts.body}
-              explanationTitle={termExplainers.directCosts.title}
-            />
-            <strong>{formatCurrency(scenario.directCosts)}</strong>
           </div>
         </div>
       </div>
@@ -391,155 +376,184 @@ export default function ScenarioDetail({ selectedScenarioId, model }) {
         </Callout>
       ) : null}
 
-      <div className="detail-section">
-        <div className="detail-section__header">
-          <h3>Kosten en neveneffecten</h3>
-          <p>Hier ziet u eerst de opbouw van het totaal en daaronder de bedragen die apart blijven staan.</p>
-        </div>
-      <div className="detail-grid">
-        <article className="detail-card">
-          <div className="detail-card__header">
-            <h3>Opbouw van het totaal</h3>
-          </div>
-          <KeyValueList rows={buildDirectBreakdownRows(selectedScenarioId, scenario)} />
-        </article>
-        <article className="detail-card">
-          <div className="detail-card__header">
-            <h3>Apart weergegeven in de periode</h3>
-          </div>
-          <KeyValueList rows={buildSideEffectRows(selectedScenarioId, scenario)} />
-        </article>
-      </div>
-      </div>
-
-      {scenario.partnerDetailAtReview ? (
-        <div className="detail-grid detail-grid--partner">
-          <article className="detail-card detail-card--partner">
-            <h3>Partner</h3>
-            <KeyValueList
-              rows={[
-                {
-                  label: "Bruto aandeel uit resterende nalatenschap",
-                  value: formatCurrency(scenario.partnerDetailAtReview.grossShare),
-                  explanation: termExplainers.partnerGrossShare.body,
-                  explanationTitle: termExplainers.partnerGrossShare.title,
-                },
-                {
-                  label: "Belastbare grondslag",
-                  value: formatCurrency(scenario.partnerDetailAtReview.taxableShare),
-                  explanation: termExplainers.taxableShare.body,
-                  explanationTitle: termExplainers.taxableShare.title,
-                },
-                {
-                  label: "Erfbelasting partner",
-                  value: formatCurrency(scenario.partnerDetailAtReview.tax),
-                  tone: scenario.partnerDetailAtReview.tax > 0 ? "red" : "green",
-                  emphasis: true,
-                  explanation: termExplainers.partnerInheritanceTax.body,
-                  explanationTitle: termExplainers.partnerInheritanceTax.title,
-                },
-              ]}
+      <div className="summary-grid summary-grid--detail">
+        <article className="summary-card">
+          <p className="summary-card__eyebrow">Nu</p>
+          <h3 className="summary-card__title">
+            <ExplainedLabel
+              label="Directe lasten"
+              explanation={termExplainers.directBurden.body}
+              explanationTitle={termExplainers.directBurden.title}
             />
-          </article>
-        </div>
-      ) : null}
+          </h3>
+          <strong className="summary-card__value">{formatCurrency(scenario.directBurden)}</strong>
+          <p className="summary-card__note">Het totaal in deze vergelijking.</p>
+        </article>
+        <article className="summary-card summary-card--info">
+          <p className="summary-card__eyebrow">Binnen dit totaal</p>
+          <h3 className="summary-card__title">
+            <ExplainedLabel
+              label="Akten en belastingen nu"
+              explanation={termExplainers.directCosts.body}
+              explanationTitle={termExplainers.directCosts.title}
+            />
+          </h3>
+          <strong className="summary-card__value">{formatCurrency(scenario.directCosts)}</strong>
+          <p className="summary-card__note">Wat direct tijdens leven speelt.</p>
+        </article>
+        <article className="summary-card summary-card--success">
+          <p className="summary-card__eyebrow">Verschil met niets doen</p>
+          <h3 className="summary-card__title">Wat deze route scheelt</h3>
+          <strong className="summary-card__value">{formatCurrency(Math.abs(differenceVsDoNothing))}</strong>
+          <p className="summary-card__note">
+            {differenceVsDoNothing > 0
+              ? "Lager dan niets doen in deze vergelijking."
+              : differenceVsDoNothing < 0
+                ? "Hoger dan niets doen in deze vergelijking."
+                : "Gelijk aan niets doen in deze vergelijking."}
+          </p>
+        </article>
+      </div>
 
-      <div className="detail-section">
-        <div className="detail-section__header">
-          <h3>Uitsplitsing per kind</h3>
-          <p>Per kind ziet u wat al is geschonken, wat later nog uit de nalatenschap komt en welke lasten daarbij horen.</p>
-        </div>
-      <div className="detail-grid">
-        {scenario.children.map((child) => (
-          <article className="detail-card" key={child.id}>
-            <div className="detail-card__header">
-              <h3>
-                {child.livesInHome ? <Icon name="house" size={16} /> : null}
-                {" "}{child.label}
-              </h3>
-              <div className="detail-card__badges">
-                <Badge tone="blue">{child.sharePercent}%</Badge>
-                {child.livesInHome ? (
-                  <Badge tone="green">woont in woning</Badge>
-                ) : null}
+      <div className="detail-accordion-list">
+        <AccordionItem title="Kostenopbouw bekijken">
+          <div className="detail-grid">
+            <article className="detail-card">
+              <div className="detail-card__header">
+                <h3>Opbouw van het totaal</h3>
               </div>
-            </div>
-            <KeyValueList
-              rows={[
-                {
-                  label: "Al eerder geschonken woningdeel",
-                  value: formatCurrency(child.giftedValueAtReview),
-                  explanation: termExplainers.childGiftedValueAtReview.body,
-                  explanationTitle: termExplainers.childGiftedValueAtReview.title,
-                },
-                {
-                  label: "Nog uit nalatenschap",
-                  value: formatCurrency(child.inheritedGrossAtReview),
-                  explanation: termExplainers.childInheritedGrossAtReview.body,
-                  explanationTitle: termExplainers.childInheritedGrossAtReview.title,
-                },
-                {
-                  label: "Erfbelasting over restant",
-                  value: formatCurrency(child.inheritanceTax),
-                  tone: "red",
-                  explanation: termExplainers.childInheritanceTax.body,
-                  explanationTitle: termExplainers.childInheritanceTax.title,
-                },
-                {
-                  label: `Overdrachtsbelasting (${child.livesInHome ? "2%" : model.inputs.transferTaxRate + "%"})`,
-                  value: formatCurrency(child.transferTax),
-                  tone: "amber",
-                  explanation: child.livesInHome
-                    ? "Dit kind woont (of gaat wonen) in de woning. Daardoor geldt het lagere eigen-woningtarief van 2% overdrachtsbelasting."
-                    : termExplainers.transferTaxTotal.body,
-                  explanationTitle: termExplainers.transferTaxTotal.title,
-                },
-                ...(selectedScenarioId !== "doNothing"
-                  ? [
-                      {
-                        label: child.livesInHome ? "Box 3 (n.v.t. — eigen woning)" : "Box 3 in deze periode",
-                        value: formatCurrency(child.box3),
-                        tone: child.livesInHome ? "green" : "blue",
-                        explanation: child.livesInHome
-                          ? "Dit kind woont in de woning. Het woningdeel valt daardoor in box 1, niet in box 3."
-                          : termExplainers.box3.body,
-                        explanationTitle: termExplainers.box3.title,
-                      },
-                    ]
-                  : []),
-                {
-                  label: "Aandeel in directe kosten",
-                  value: formatCurrency(child.directCostShare),
-                  tone: "amber",
-                  explanation: termExplainers.childDirectCostShare.body,
-                  explanationTitle: termExplainers.childDirectCostShare.title,
-                },
-                {
-                  label: "Netto in deze vergelijking",
-                  value: formatCurrency(child.projectedNetOutcome),
-                  tone: "green",
-                  emphasis: true,
-                  explanation: termExplainers.childProjectedNetOutcome.body,
-                  explanationTitle: termExplainers.childProjectedNetOutcome.title,
-                },
-              ]}
-            />
-          </article>
-        ))}
-      </div>
-      </div>
+              <KeyValueList rows={buildDirectBreakdownRows(selectedScenarioId, scenario)} />
+            </article>
+            <article className="detail-card">
+              <div className="detail-card__header">
+                <h3>Apart weergegeven in de periode</h3>
+              </div>
+              <KeyValueList rows={buildSideEffectRows(selectedScenarioId, scenario)} />
+            </article>
+          </div>
+        </AccordionItem>
 
-      <div className="detail-section">
-        <div className="detail-section__header">
-          <h3>Tijdlijn per jaar</h3>
-          <p>Gebruik deze tabel als u wilt zien hoe de uitkomst opschuift wanneer het peilmoment later valt.</p>
-        </div>
-      <DataTable
-        title="Tijdlijn per jaar"
-        columns={timelineConfig.columns}
-        rows={timelineConfig.rows}
-        footer={timelineConfig.footer}
-      />
+        {scenario.partnerDetailAtReview ? (
+          <AccordionItem title="Partner bekijken">
+            <div className="detail-grid detail-grid--partner">
+              <article className="detail-card detail-card--partner">
+                <h3>Partner</h3>
+                <KeyValueList
+                  rows={[
+                    {
+                      label: "Bruto aandeel uit resterende nalatenschap",
+                      value: formatCurrency(scenario.partnerDetailAtReview.grossShare),
+                      explanation: termExplainers.partnerGrossShare.body,
+                      explanationTitle: termExplainers.partnerGrossShare.title,
+                    },
+                    {
+                      label: "Belastbare grondslag",
+                      value: formatCurrency(scenario.partnerDetailAtReview.taxableShare),
+                      explanation: termExplainers.taxableShare.body,
+                      explanationTitle: termExplainers.taxableShare.title,
+                    },
+                    {
+                      label: "Erfbelasting partner",
+                      value: formatCurrency(scenario.partnerDetailAtReview.tax),
+                      tone: scenario.partnerDetailAtReview.tax > 0 ? "red" : "green",
+                      emphasis: true,
+                      explanation: termExplainers.partnerInheritanceTax.body,
+                      explanationTitle: termExplainers.partnerInheritanceTax.title,
+                    },
+                  ]}
+                />
+              </article>
+            </div>
+          </AccordionItem>
+        ) : null}
+
+        <AccordionItem title="Per kind bekijken">
+          <div className="detail-grid">
+            {scenario.children.map((child) => (
+              <article className="detail-card" key={child.id}>
+                <div className="detail-card__header">
+                  <h3>
+                    {child.livesInHome ? <Icon name="house" size={16} /> : null}
+                    {" "}{child.label}
+                  </h3>
+                  <div className="detail-card__badges">
+                    <Badge tone="blue">{child.sharePercent}%</Badge>
+                    {child.livesInHome ? <Badge tone="green">woont in woning</Badge> : null}
+                  </div>
+                </div>
+                <KeyValueList
+                  rows={[
+                    {
+                      label: "Al eerder geschonken woningdeel",
+                      value: formatCurrency(child.giftedValueAtReview),
+                      explanation: termExplainers.childGiftedValueAtReview.body,
+                      explanationTitle: termExplainers.childGiftedValueAtReview.title,
+                    },
+                    {
+                      label: "Nog uit nalatenschap",
+                      value: formatCurrency(child.inheritedGrossAtReview),
+                      explanation: termExplainers.childInheritedGrossAtReview.body,
+                      explanationTitle: termExplainers.childInheritedGrossAtReview.title,
+                    },
+                    {
+                      label: "Erfbelasting over restant",
+                      value: formatCurrency(child.inheritanceTax),
+                      tone: "red",
+                      explanation: termExplainers.childInheritanceTax.body,
+                      explanationTitle: termExplainers.childInheritanceTax.title,
+                    },
+                    {
+                      label: `Overdrachtsbelasting (${child.livesInHome ? "2%" : model.inputs.transferTaxRate + "%"})`,
+                      value: formatCurrency(child.transferTax),
+                      tone: "amber",
+                      explanation: child.livesInHome
+                        ? "Dit kind woont (of gaat wonen) in de woning. Daardoor geldt het lagere eigen-woningtarief van 2% overdrachtsbelasting."
+                        : termExplainers.transferTaxTotal.body,
+                      explanationTitle: termExplainers.transferTaxTotal.title,
+                    },
+                    ...(selectedScenarioId !== "doNothing"
+                      ? [
+                          {
+                            label: child.livesInHome ? "Box 3 (n.v.t. — eigen woning)" : "Box 3 in deze periode",
+                            value: formatCurrency(child.box3),
+                            tone: child.livesInHome ? "green" : "blue",
+                            explanation: child.livesInHome
+                              ? "Dit kind woont in de woning. Het woningdeel valt daardoor in box 1, niet in box 3."
+                              : termExplainers.box3.body,
+                            explanationTitle: termExplainers.box3.title,
+                          },
+                        ]
+                      : []),
+                    {
+                      label: "Aandeel in directe kosten",
+                      value: formatCurrency(child.directCostShare),
+                      tone: "amber",
+                      explanation: termExplainers.childDirectCostShare.body,
+                      explanationTitle: termExplainers.childDirectCostShare.title,
+                    },
+                    {
+                      label: "Netto in deze vergelijking",
+                      value: formatCurrency(child.projectedNetOutcome),
+                      tone: "green",
+                      emphasis: true,
+                      explanation: termExplainers.childProjectedNetOutcome.body,
+                      explanationTitle: termExplainers.childProjectedNetOutcome.title,
+                    },
+                  ]}
+                />
+              </article>
+            ))}
+          </div>
+        </AccordionItem>
+
+        <AccordionItem title="Tijdlijn per jaar bekijken">
+          <DataTable
+            title="Tijdlijn per jaar"
+            columns={timelineConfig.columns}
+            rows={timelineConfig.rows}
+            footer={timelineConfig.footer}
+          />
+        </AccordionItem>
       </div>
     </SectionCard>
   );

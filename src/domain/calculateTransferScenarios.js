@@ -774,7 +774,16 @@ export function findOptimalTransferAmount(input, rules = taxRules2026, { samples
       oneTime.extraCashFlows.cumulativeBox3 +
       oneTime.extraCashFlows.cumulativeMortgageReliefLoss;
 
-    const point = { amount, totalBurden, directBurden: oneTime.directBurden };
+    const point = {
+      amount,
+      totalBurden,
+      directBurden: oneTime.directBurden,
+      giftTax: oneTime.extraCashFlows.cumulativeGiftTax,
+      transferTax: oneTime.extraCashFlows.cumulativeTransferTax,
+      notaryCosts: oneTime.extraCashFlows.cumulativeNotaryCosts,
+      inheritanceTax: oneTime.inheritanceTaxOnly,
+      transferYear: result.inputs.oneTimeTransferYear,
+    };
     points.push(point);
 
     if (optimum === null || totalBurden < optimum.totalBurden) {

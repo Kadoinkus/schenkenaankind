@@ -7,9 +7,11 @@ import { scenarioMeta } from "./scenarioMeta.js";
 export default function ScenarioComparison({ state, model, actions }) {
   const comparisonItems = scenarioMeta.map((meta) => {
     const summary =
-      meta.id === "oneTimeTransfer"
-        ? `${meta.summary} In deze berekening gebeurt dat in jaar ${model.inputs.oneTimeTransferYear}.`
-        : meta.summary;
+      meta.id === "doNothing"
+        ? "Uw kinderen erven later vanuit de nalatenschap."
+        : meta.id === "oneTimeTransfer"
+          ? `1 overdracht in ${model.inputs.oneTimeTransferYear}.`
+          : "Kleine overdrachten verspreid over de jaren.";
 
     return {
       id: meta.id,
@@ -22,8 +24,6 @@ export default function ScenarioComparison({ state, model, actions }) {
     };
   });
 
-  const annualAdvantage =
-    model.scenarios.doNothing.directBurden - model.scenarios.annualTransfer.directBurden;
   const annualTransferMoments = model.scenarios.annualTransfer.timeline.filter(
     (row) => row.transferredThisYear > 0,
   );
@@ -42,8 +42,8 @@ export default function ScenarioComparison({ state, model, actions }) {
   return (
     <SectionCard
       eyebrow="Vergelijk routes"
-      title="Kies een route"
-      subtitle={`Periode ${model.overview.baseYear}\u2013${model.overview.lastReviewYear} \u00b7 doelbedrag ${formatCurrency(model.overview.plannedTransferValueTotal)}`}
+      title="Kies 1 route"
+      subtitle="Bekijk eerst welke route in deze invoer het gunstigst uitkomt."
     >
       <ComparisonList
         items={comparisonItems}
@@ -60,13 +60,6 @@ export default function ScenarioComparison({ state, model, actions }) {
           <strong>{annualTransferMoments[0].year}</strong>. Daardoor rekent de tool daar met{" "}
           <strong>1 akte</strong>, dezelfde overdrachtsbelasting en geen extra schenkbelasting.
           In de praktijk lijkt deze route hier dus op <strong>in 1 keer schenken</strong>.
-        </Callout>
-      ) : null}
-
-      {annualAdvantage > 0 ? (
-        <Callout title="Kort samengevat" tone="info" icon="check">
-          In deze invoer komt jaarlijks eigendom schenken{" "}
-          {formatCurrency(annualAdvantage)} lager uit in directe lasten dan niets doen.
         </Callout>
       ) : null}
     </SectionCard>

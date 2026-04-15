@@ -472,7 +472,7 @@ export const termExplainers = {
   targetTransferValue: {
     title: "Hoeveel woningwaarde wilt u vergelijken als schenking?",
     body:
-      "Dit is het bedrag aan woningwaarde dat u in de vergelijking wilt weggeven. Bij 'in 1 keer schenken' gaat dit bedrag in 1 akte over in het gekozen jaar. Bij 'jaarlijks een deel schenken' probeert de tool dit bedrag binnen de gekozen jaren uit te smeren, maximaal tot de jaarlijkse schenkruimte die u hebt ingevuld.",
+      "Dit is het bedrag aan woningwaarde dat u in de vergelijking wilt weggeven. Kiest u hier bewust een hoger bedrag dan de belastingvrije ruimte, dan rekent de tool over het meerdere schenkbelasting mee. Bij 'in 1 keer schenken' gaat dit bedrag in 1 akte over in het gekozen jaar. Bij 'jaarlijks een deel schenken' probeert de tool dit bedrag binnen de gekozen jaren uit te smeren, maximaal tot de jaarlijkse schenkruimte die u hebt ingevuld.",
   },
   targetTransferMode: {
     title: "Vult de tool dit bedrag zelf in?",

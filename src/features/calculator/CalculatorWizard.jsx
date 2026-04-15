@@ -82,17 +82,6 @@ function SupportCard({ eyebrow, title, children, tone = "default" }) {
   );
 }
 
-function SummaryCard({ eyebrow, title, value, note, tone = "default" }) {
-  return (
-    <article className={`summary-card summary-card--${tone}`.trim()}>
-      {eyebrow ? <p className="summary-card__eyebrow">{eyebrow}</p> : null}
-      {title ? <h3 className="summary-card__title">{title}</h3> : null}
-      {value ? <strong className="summary-card__value">{value}</strong> : null}
-      {note ? <p className="summary-card__note">{note}</p> : null}
-    </article>
-  );
-}
-
 export default function CalculatorWizard({ calculator, premiumAccess }) {
   const { state, model, actions, mortgageTypes } = calculator;
   const [stepIndex, setStepIndexRaw] = useState(0);
@@ -111,11 +100,6 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
   const [isApplyingPromo, setIsApplyingPromo] = useState(false);
   const [isProcessingCheckout, setIsProcessingCheckout] = useState(false);
   const [checkoutMessage, setCheckoutMessage] = useState(null);
-  const annualFamilyExemption = state.annualGiftExemptionPerChild * state.childrenCount;
-  const oneTimeExemptionPerChild = state.useOneOffGiftExemption
-    ? state.oneOffGiftExemptionPerChild
-    : state.annualGiftExemptionPerChild;
-  const oneTimeFamilyExemption = oneTimeExemptionPerChild * state.childrenCount;
   const premiumOffer = useMemo(() => derivePremiumOffer(model), [model]);
 
   const optimisation = useMemo(
@@ -128,7 +112,6 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
   }, [model.scenarios]);
 
   const bestScenario = scenarioMetaById[bestScenarioId];
-  const selectedScenario = scenarioMetaById[state.selectedScenarioId];
   const finalPriceMinor = promoResult?.finalPriceMinor ?? premiumOffer.basePriceMinor;
   const baseYear = model.overview.baseYear;
   const reviewYear = model.overview.lastReviewYear;
@@ -294,21 +277,11 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
       <section className="wizard-intro wizard-intro--panel">
         <div className="wizard-intro__main">
           <p className="intro-band__eyebrow">Berekening</p>
-          <h1>Rustig stap voor stap door uw situatie</h1>
+          <h1>Vul rustig uw situatie in</h1>
           <p className="wizard-intro__lead">
-            U hoeft niet alles tegelijk te begrijpen. Per stap vult u alleen in wat u nu weet.
-            De rest kunt u later verfijnen.
+            U vult eerst alleen de hoofdlijnen in. Details kunt u later openen als dat nodig is.
           </p>
         </div>
-        <aside className="wizard-intro__aside">
-          <SupportCard eyebrow="Voor u klaarleggen" title="Wat u meestal nodig hebt" tone="soft">
-            <ul className="support-list">
-              <li>WOZ-beschikking 2026</li>
-              <li>Overzicht van uw resterende hypotheek en maandlast</li>
-              <li>Een grove inschatting van partner, kinderen en de periode vooruit</li>
-            </ul>
-          </SupportCard>
-        </aside>
       </section>
 
       <Stepper stepIndex={stepIndex} onStepClick={setStepIndex} />
@@ -317,17 +290,15 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
         <SectionCard
           eyebrow="Stap 1 van 4"
           title={steps[0].title}
-          subtitle="De tool gaat uit van nu, dus van 2026. Gebruik daarom hier uw WOZ-waarde 2026 als startpunt."
+          subtitle="Begin met uw WOZ 2026 en hypotheek."
           tone="blue"
         >
-          <div className="step-layout">
+          <div className="step-layout step-layout--simple">
             <div className="step-layout__main">
               <section className="step-block">
                 <div className="step-block__header">
                   <h3>Woning</h3>
-                  <p>
-                    Vul de WOZ-waarde in die u op uw WOZ-beschikking 2026 kunt vinden.
-                  </p>
+                  <p>Gebruik de WOZ-waarde die op uw beschikking 2026 staat.</p>
                 </div>
                 <div className="field-grid">
                   <NumberField
@@ -346,6 +317,7 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
               <section className="step-block">
                 <div className="step-block__header">
                   <h3>Hypotheek</h3>
+                  <p>Heeft u geen hypotheek meer, dan kunt u dit deel overslaan.</p>
                 </div>
                 <SegmentedControl
                   label="Heeft u nog een hypotheek?"
@@ -410,23 +382,13 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
                   </>
                 ) : null}
               </section>
-            </div>
-
-            <aside className="step-layout__aside">
-              <SupportCard eyebrow="Snel starten" title="Waar kijkt deze stap naar?">
-                <ul className="support-list">
-                  <li>De huidige waarde van uw woning in 2026</li>
-                  <li>Het deel dat nog bij de bank openstaat</li>
-                  <li>De maandlast en hypotheekvorm voor een eenvoudige projectie</li>
-                </ul>
-              </SupportCard>
-              <SupportCard title="Niet alles zeker?" tone="soft">
+              <Callout title="Voor een eerste vergelijking is dit genoeg" tone="info" icon="help">
                 <p>
-                  Geen probleem. Gebruik een realistische benadering en laat moeilijke details
-                  voorlopig op de standaardlijn staan.
+                  Heeft u uw WOZ-waarde en ongeveer zicht op uw hypotheek? Dan kunt u door naar de
+                  volgende stap.
                 </p>
-              </SupportCard>
-            </aside>
+              </Callout>
+            </div>
           </div>
 
           <div className="wizard-actions">
@@ -442,18 +404,15 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
         <SectionCard
           eyebrow="Stap 2 van 4"
           title={steps[1].title}
-          subtitle={steps[1].subtitle}
+          subtitle="Vul alleen de hoofdlijnen van uw gezinssituatie in."
           tone="blue"
         >
-          <div className="step-layout">
+          <div className="step-layout step-layout--simple">
             <div className="step-layout__main">
               <section className="step-block">
                 <div className="step-block__header">
                   <h3>Gezin en nalatenschap</h3>
-                  <p>
-                    Kies eerst de gezinssituatie die het dichtst bij uw werkelijkheid ligt.
-                    Fijnslijpen kan later.
-                  </p>
+                  <p>Kies de situatie die nu het dichtst bij uw werkelijkheid ligt.</p>
                 </div>
                 <SegmentedControl
                   label="Partner meenemen"
@@ -512,10 +471,7 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
               <section className="step-block">
                 <div className="step-block__header">
                   <h3>Vooruitkijken</h3>
-                  <p>
-                    Hiermee bepaalt u hoeveel kinderen meedoen en tot welk jaar de vergelijking
-                    doorrekent.
-                  </p>
+                  <p>Hiermee bepaalt u hoeveel kinderen meedoen en hoe ver de vergelijking kijkt.</p>
                 </div>
                 <div className="field-grid field-grid--family">
                   <NumberField
@@ -546,7 +502,7 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
               </section>
 
               <details className="advanced-panel">
-                <summary>Verdeling kinderen aanpassen</summary>
+                <summary>Meer details over kinderen toevoegen</summary>
                 <p className="muted-copy">{termExplainers.childShares.body}</p>
                 <div className="distribution-editor">
                   {model.inputs.childShares.map((share, index) => {
@@ -654,32 +610,13 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
                 <p className="muted-copy">{termExplainers.childLivesInHome.body}</p>
                 <p className="muted-copy">{termExplainers.childPriorGifts.body}</p>
               </details>
-            </div>
-
-            <aside className="step-layout__aside">
-              <SupportCard eyebrow="Uw invoer nu" title="Kort overzicht">
-                <dl className="mini-summary">
-                  <div>
-                    <dt>Partner</dt>
-                    <dd>{state.hasPartner ? "Ja" : "Nee"}</dd>
-                  </div>
-                  <div>
-                    <dt>Kinderen</dt>
-                    <dd>{state.childrenCount}</dd>
-                  </div>
-                  <div>
-                    <dt>Peilmoment</dt>
-                    <dd>{reviewYear}</dd>
-                  </div>
-                </dl>
-              </SupportCard>
-              <SupportCard title="Later nog verfijnen" tone="soft">
+              <Callout title="U hoeft nu nog niet alles fijn te zetten" tone="info" icon="help">
                 <p>
-                  De verdeling tussen kinderen en de woonsituatie per kind kunt u hieronder
-                  aanpassen, maar voor een eerste vergelijking hoeft dat niet meteen.
+                  Voor een eerste vergelijking zijn partner, aantal kinderen en jaren vooruit
+                  meestal genoeg. Extra kinddetails kunt u later openen.
                 </p>
-              </SupportCard>
-            </aside>
+              </Callout>
+            </div>
           </div>
 
           <div className="wizard-actions">
@@ -699,18 +636,15 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
         <SectionCard
           eyebrow="Stap 3 van 4"
           title={steps[2].title}
-          subtitle="Hier bepaalt u vooral de 2026-aannames voor vrijstellingen, aktekosten en belasting bij eigendomsoverdracht."
+          subtitle="Kies alleen de aannames die u nu wilt vergelijken."
           tone="blue"
         >
-          <div className="step-layout">
+          <div className="step-layout step-layout--simple">
             <div className="step-layout__main">
               <section className="step-block">
                 <div className="step-block__header">
                   <h3>Periode en uitgangspunten</h3>
-                  <p>
-                    Hiermee legt u vast hoe de woningwaarde ongeveer groeit en in welk jaar de
-                    eenmalige overdracht wordt vergeleken.
-                  </p>
+                  <p>Hiermee legt u vast hoe de woning ongeveer groeit en in welk jaar u vergelijkt.</p>
                 </div>
                 <div className="field-grid field-grid--family">
                   <NumberField
@@ -751,10 +685,7 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
               <section className="step-block">
                 <div className="step-block__header">
                   <h3>Bedrag om te vergelijken</h3>
-                  <p>
-                    Kies of de tool automatisch de vrijgestelde ruimte invult, of dat u zelf een
-                    bedrag wilt testen.
-                  </p>
+                  <p>Kies of de tool automatisch invult of dat u zelf een bedrag test.</p>
                 </div>
                 <SegmentedControl
                   label="Bedrag voor 1 keer schenken"
@@ -773,16 +704,36 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
                     <div className="step-block__header">
                       <h3>Zelf een bedrag kiezen</h3>
                       <p>
-                        De grafiek laat de totale last zien bij verschillende schenkbedragen. Klik
-                        een bedrag aan of vul het handmatig in.
+                        De grafiek vergelijkt de totale last van <strong>in 1 keer schenken</strong>{" "}
+                        bij verschillende bedragen in <strong>{state.oneTimeTransferYear}</strong>.
+                        Klik een bedrag aan of vul het handmatig in.
                       </p>
                     </div>
                     {optimisation.optimum ? (
                       <p className="muted-copy">
-                        In deze invoer ligt het gunstigste eenmalige schenkbedrag rond{" "}
-                        <strong>{formatCurrency(optimisation.optimum.amount)}</strong>.
+                        Het laagste totaal in deze invoer ligt rond{" "}
+                        <strong>{formatCurrency(optimisation.optimum.amount)}</strong>. Dat is dus
+                        niet automatisch het belastingvrije bedrag.
                       </p>
                     ) : null}
+                    <Callout
+                      title="Waarom kan dit boven de vrijstelling liggen?"
+                      tone="info"
+                      icon="help"
+                    >
+                      <p>
+                        Ligt het gekozen bedrag boven de belastingvrije ruimte van{" "}
+                        <strong>{formatCurrency(model.overview.oneTimeTaxFreeCapacity)}</strong> in{" "}
+                        <strong>{state.oneTimeTransferYear}</strong>, dan rekent de tool over het
+                        meerdere schenkbelasting mee.
+                      </p>
+                      <p>
+                        Een hoger bedrag kan toch gunstiger lijken als die extra schenkbelasting
+                        lager is dan het voordeel van minder erfbelasting later. In de uitkomst ziet
+                        u dit terug onder <strong>Schenkbelasting</strong> bij{" "}
+                        <strong>Kostenopbouw bekijken</strong>.
+                      </p>
+                    </Callout>
                     <OptimalTransferChart
                       points={optimisation.points}
                       optimum={optimisation.optimum}
@@ -814,39 +765,22 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
                 )}
               </section>
 
-              <div className="summary-grid">
-                <SummaryCard
-                  eyebrow="Doelbedrag in deze vergelijking"
-                  title="Woningwaarde om te schenken"
-                  value={formatCurrency(model.overview.plannedTransferValueTotal)}
-                  note={`Route 'in 1 keer schenken' vergelijkt dit bedrag in ${state.oneTimeTransferYear}.`}
-                  tone="default"
-                />
-                <SummaryCard
-                  eyebrow="Jaarlijkse route"
-                  title="Wat past binnen de gekozen jaren"
-                  value={formatCurrency(model.overview.annualTransferCapacity)}
-                  note={
-                    model.overview.annualTransferShortfall > 0
-                      ? `Dat is ${formatCurrency(
-                          model.overview.annualTransferShortfall,
-                        )} minder dan het doelbedrag.`
-                      : "In deze invoer haalt de jaarlijkse route het doelbedrag."
-                  }
-                  tone="info"
-                />
-                <SummaryCard
-                  eyebrow="Belastingvrije ruimte in het gekozen jaar"
-                  title={
-                    state.useOneOffGiftExemption
-                      ? "Eenmalig hogere vrijstelling"
-                      : "Gewone jaarlijkse vrijstelling"
-                  }
-                  value={formatCurrency(oneTimeFamilyExemption)}
-                  note={`Bij ${state.childrenCount} ${state.childrenCount === 1 ? "kind" : "kinderen"} samen.`}
-                  tone="success"
-                />
-              </div>
+              <Callout title="Wat de tool nu gebruikt" tone="info" icon="help">
+                <dl className="mini-summary">
+                  <div>
+                    <dt>Doelbedrag</dt>
+                    <dd>{formatCurrency(model.overview.plannedTransferValueTotal)}</dd>
+                  </div>
+                  <div>
+                    <dt>Jaarlijkse ruimte</dt>
+                    <dd>{formatCurrency(model.overview.annualTransferCapacity)}</dd>
+                  </div>
+                  <div>
+                    <dt>Belastingvrije ruimte in {state.oneTimeTransferYear}</dt>
+                    <dd>{formatCurrency(model.overview.oneTimeTaxFreeCapacity)}</dd>
+                  </div>
+                </dl>
+              </Callout>
 
               <details className="advanced-panel">
             <summary>Geavanceerde aannames tonen</summary>
@@ -951,32 +885,6 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
           </Callout>
 
             </div>
-
-            <aside className="step-layout__aside">
-              <SupportCard eyebrow="2026" title="Belastingvrije ruimte in deze invoer">
-                <dl className="mini-summary">
-                  <div>
-                    <dt>Per kind per jaar</dt>
-                    <dd>{formatCurrency(state.annualGiftExemptionPerChild)}</dd>
-                  </div>
-                  <div>
-                    <dt>Gezin samen per jaar</dt>
-                    <dd>{formatCurrency(annualFamilyExemption)}</dd>
-                  </div>
-                  <div>
-                    <dt>Eenmalig hoger per kind</dt>
-                    <dd>{formatCurrency(state.oneOffGiftExemptionPerChild)}</dd>
-                  </div>
-                </dl>
-              </SupportCard>
-              <SupportCard title="Belangrijk om te onthouden" tone="soft">
-                <ul className="support-list">
-                  <li>Bij een woning kan naast schenkbelasting ook overdrachtsbelasting spelen.</li>
-                  <li>Jaarlijks schenken betekent meestal ook vaker een notariële akte.</li>
-                  <li>De tool vergelijkt alleen de woning en rekent met vereenvoudigde aannames.</li>
-                </ul>
-              </SupportCard>
-            </aside>
           </div>
 
           <div className="wizard-actions">
@@ -1002,8 +910,8 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
           >
             <SectionCard
               eyebrow="Stap 4 van 4"
-              title="Uw uitkomst"
-              subtitle="Hieronder ziet u wat de drie routes in deze invoer aan directe lasten opleveren. Kies een route om de opbouw te bekijken."
+              title="Uw eerste uitkomst"
+              subtitle="U ziet eerst welke route het laagst uitkomt. Open daarna alleen de details die u nodig hebt."
               tone="green"
             >
               <div className="results-headline">

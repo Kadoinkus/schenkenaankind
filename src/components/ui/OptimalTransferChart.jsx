@@ -162,6 +162,17 @@ export default function OptimalTransferChart({ points, optimum, onSelect }) {
         <span className="optimal-chart__tooltip-detail">
           Totale last: {formatCurrency(activePoint.totalBurden)}
         </span>
+        {typeof activePoint.directBurden === "number" ? (
+          <span className="optimal-chart__tooltip-detail">
+            Directe lasten: {formatCurrency(activePoint.directBurden)}
+          </span>
+        ) : null}
+        {typeof activePoint.giftTax === "number" ? (
+          <span className="optimal-chart__tooltip-detail">
+            Schenkbelasting in {activePoint.transferYear}:{" "}
+            {formatCurrency(activePoint.giftTax)}
+          </span>
+        ) : null}
       </div>
 
       {optimum && onSelect ? (
