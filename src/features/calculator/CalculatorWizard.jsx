@@ -479,7 +479,7 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
                     label="Aantal kinderen"
                     value={state.childrenCount}
                     min={1}
-                    max={8}
+                    max={10}
                     step={1}
                     explanation={termExplainers.childrenCount.body}
                     explanationTitle={termExplainers.childrenCount.title}

@@ -234,7 +234,7 @@ function buildAnnualTransferSchedule({
 
 export function calculateTransferScenarios(input, rules = taxRules2026) {
   const baseYear = rules.year;
-  const childrenCount = clamp(Math.round(input.childrenCount || 2), 1, 8);
+  const childrenCount = clamp(Math.round(input.childrenCount || 2), 1, 10);
   const childShares = normalizeShares(childrenCount, input.childShares);
   const yearsToReview = clamp(Math.round(input.yearsToReview || 10), 1, 40);
   const lastReviewYear = baseYear + yearsToReview - 1;

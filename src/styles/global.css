@@ -1482,6 +1482,10 @@ input {
   min-height: 50px;
 }
 
+.field__input-wrap.is-invalid {
+  border-color: var(--color-danger-700);
+}
+
 .field__input {
   width: 100%;
   border: none;
@@ -1503,6 +1507,11 @@ input {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
+}
+
+.field__error {
+  color: var(--color-danger-700);
+  font-size: 0.86rem;
 }
 
 .controls-row {

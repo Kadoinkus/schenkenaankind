@@ -162,7 +162,7 @@ export default function CalculatorControls({
           label="Aantal kinderen"
           value={state.childrenCount}
           min={1}
-          max={8}
+          max={10}
           step={1}
           onChange={actions.setChildrenCount}
         />

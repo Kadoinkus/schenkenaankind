@@ -167,6 +167,26 @@ run("eenmalige schenking gebeurt pas in het gekozen jaar", () => {
   assert.ok(result.scenarios.oneTimeTransfer.timeline[3].giftedValueAtYear > 0);
 });
 
+run("rekenmodel ondersteunt tot 10 kinderen", () => {
+  const result = calculateTransferScenarios({
+    homeValue: 700000,
+    mortgageBalance: 175000,
+    mortgageInterestRate: 3.5,
+    monthlyMortgageCost: 900,
+    mortgageType: mortgageTypes.interestOnly,
+    childrenCount: 10,
+    yearsToReview: 10,
+    hasPartner: false,
+    annualGrowthRate: 3,
+    mortgageInterestReliefRate: 36.93,
+    partnerSharePercent: 0,
+  });
+
+  assert.equal(result.inputs.childrenCount, 10);
+  assert.equal(result.inputs.childShares.length, 10);
+  assert.equal(result.scenarios.doNothing.children.length, 10);
+});
+
 run("altijd werkende kortingscode kan het premium rapport gratis maken", () => {
   const result = evaluatePromoCode("huis2026");
 
