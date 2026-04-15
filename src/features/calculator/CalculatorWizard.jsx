@@ -315,10 +315,9 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
             <div className="step-layout__main">
               <section className="step-block">
                 <div className="step-block__header">
-                  <h3>Woning en hypotheek</h3>
+                  <h3>Woning</h3>
                   <p>
-                    Vul de bedragen in die u meestal direct op uw WOZ-beschikking of
-                    hypotheekoverzicht kunt vinden.
+                    Vul de WOZ-waarde in die u op uw WOZ-beschikking 2026 kunt vinden.
                   </p>
                 </div>
                 <div className="field-grid">
@@ -332,60 +331,75 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
                     explanationTitle={termExplainers.homeValue.title}
                     onChange={(value) => actions.setNumericField("homeValue", value)}
                   />
-                  <NumberField
-                    id="mortgageBalance"
-                    label="Resterende hypotheek"
-                    value={state.mortgageBalance}
-                    step={1000}
-                    suffix="EUR"
-                    explanation={termExplainers.mortgageBalance.body}
-                    explanationTitle={termExplainers.mortgageBalance.title}
-                    onChange={(value) => actions.setNumericField("mortgageBalance", value)}
-                  />
-                  <NumberField
-                    id="mortgageInterestRate"
-                    label="Hypotheekrente"
-                    value={state.mortgageInterestRate}
-                    step={0.1}
-                    suffix="%"
-                    explanation={termExplainers.mortgageInterestRate.body}
-                    explanationTitle={termExplainers.mortgageInterestRate.title}
-                    onChange={(value) =>
-                      actions.setNumericField("mortgageInterestRate", value, { max: 25 })
-                    }
-                  />
-                  <NumberField
-                    id="monthlyMortgageCost"
-                    label="Maandlast bank"
-                    value={state.monthlyMortgageCost}
-                    step={25}
-                    suffix="EUR"
-                    explanation={termExplainers.monthlyMortgageCost.body}
-                    explanationTitle={termExplainers.monthlyMortgageCost.title}
-                    onChange={(value) => actions.setNumericField("monthlyMortgageCost", value)}
-                  />
                 </div>
               </section>
 
               <section className="step-block">
                 <div className="step-block__header">
-                  <h3>Hoe loopt uw hypotheek nu?</h3>
-                  <p>
-                    Dit helpt de tool om de hypotheekrenteaftrek en de toekomstige
-                    hypotheekontwikkeling eenvoudiger mee te nemen.
-                  </p>
+                  <h3>Hypotheek</h3>
                 </div>
                 <SegmentedControl
-                  label="Hypotheekvorm"
-                  value={state.mortgageType}
+                  label="Heeft u nog een hypotheek?"
+                  value={String(state.hasMortgage)}
                   options={[
-                    { label: "Aflossingsvrij", value: mortgageTypes.interestOnly },
-                    { label: "Annuiteit", value: mortgageTypes.annuity },
+                    { label: "Ja", value: "true" },
+                    { label: "Nee, hypotheekvrij", value: "false" },
                   ]}
-                  explanation={termExplainers.mortgageType.body}
-                  explanationTitle={termExplainers.mortgageType.title}
-                  onChange={actions.setMortgageType}
+                  explanation={termExplainers.hasMortgage.body}
+                  explanationTitle={termExplainers.hasMortgage.title}
+                  onChange={(value) => actions.setHasMortgage(value === "true")}
                 />
+
+                {state.hasMortgage ? (
+                  <>
+                    <div className="field-grid">
+                      <NumberField
+                        id="mortgageBalance"
+                        label="Resterende hypotheek"
+                        value={state.mortgageBalance}
+                        step={1000}
+                        suffix="EUR"
+                        explanation={termExplainers.mortgageBalance.body}
+                        explanationTitle={termExplainers.mortgageBalance.title}
+                        onChange={(value) => actions.setNumericField("mortgageBalance", value)}
+                      />
+                      <NumberField
+                        id="mortgageInterestRate"
+                        label="Hypotheekrente"
+                        value={state.mortgageInterestRate}
+                        step={0.1}
+                        suffix="%"
+                        explanation={termExplainers.mortgageInterestRate.body}
+                        explanationTitle={termExplainers.mortgageInterestRate.title}
+                        onChange={(value) =>
+                          actions.setNumericField("mortgageInterestRate", value, { max: 25 })
+                        }
+                      />
+                      <NumberField
+                        id="monthlyMortgageCost"
+                        label="Maandlast bank"
+                        value={state.monthlyMortgageCost}
+                        step={25}
+                        suffix="EUR"
+                        explanation={termExplainers.monthlyMortgageCost.body}
+                        explanationTitle={termExplainers.monthlyMortgageCost.title}
+                        onChange={(value) => actions.setNumericField("monthlyMortgageCost", value)}
+                      />
+                    </div>
+
+                    <SegmentedControl
+                      label="Hypotheekvorm"
+                      value={state.mortgageType}
+                      options={[
+                        { label: "Aflossingsvrij", value: mortgageTypes.interestOnly },
+                        { label: "Annuiteit", value: mortgageTypes.annuity },
+                      ]}
+                      explanation={termExplainers.mortgageType.body}
+                      explanationTitle={termExplainers.mortgageType.title}
+                      onChange={actions.setMortgageType}
+                    />
+                  </>
+                ) : null}
               </section>
             </div>
 
@@ -526,37 +540,110 @@ export default function CalculatorWizard({ calculator, premiumAccess }) {
                 <summary>Verdeling kinderen aanpassen</summary>
                 <p className="muted-copy">{termExplainers.childShares.body}</p>
                 <div className="distribution-editor">
-                  {model.inputs.childShares.map((share, index) => (
-                    <div
-                      className="distribution-editor__item"
-                      key={`child-share-${index + 1}`}
-                    >
-                      <label className="distribution-editor__label" htmlFor={`child-share-${index}`}>
-                        Kind {index + 1}
-                      </label>
-                      <div className="distribution-editor__control">
-                        <input
-                          id={`child-share-${index}`}
-                          type="range"
-                          min="0"
-                          max="100"
-                          value={share}
-                          onChange={(event) => actions.setChildShare(index, event.target.value)}
-                        />
-                        <span>{share}%</span>
+                  {model.inputs.childShares.map((share, index) => {
+                    const priorGift = state.childPriorGifts?.[index] || null;
+                    const hasPriorGift = priorGift && priorGift.amount > 0;
+                    return (
+                      <div
+                        className="distribution-editor__item"
+                        key={`child-share-${index + 1}`}
+                      >
+                        <label className="distribution-editor__label" htmlFor={`child-share-${index}`}>
+                          Kind {index + 1}
+                        </label>
+                        <div className="distribution-editor__control">
+                          <input
+                            id={`child-share-${index}`}
+                            type="range"
+                            min="0"
+                            max="100"
+                            value={share}
+                            onChange={(event) => actions.setChildShare(index, event.target.value)}
+                          />
+                          <span>{share}%</span>
+                        </div>
+                        <label className="distribution-editor__checkbox">
+                          <input
+                            type="checkbox"
+                            checked={state.childLivesInHome?.[index] || false}
+                            onChange={(event) => actions.setChildLivesInHome(index, event.target.checked)}
+                          />
+                          <span>Woont (of gaat wonen) in de woning</span>
+                        </label>
+                        <label className="distribution-editor__checkbox">
+                          <input
+                            type="checkbox"
+                            checked={hasPriorGift}
+                            onChange={(event) =>
+                              actions.setChildPriorGift(
+                                index,
+                                event.target.checked
+                                  ? { amount: 0, year: 2025, usedOneOff: false }
+                                  : null,
+                              )
+                            }
+                          />
+                          <span>Eerder al geschonken aan dit kind</span>
+                        </label>
+                        {hasPriorGift ? (
+                          <div className="prior-gift-fields">
+                            <div className="prior-gift-fields__row">
+                              <label>
+                                <span className="prior-gift-fields__label">Bedrag</span>
+                                <input
+                                  type="number"
+                                  className="prior-gift-fields__input"
+                                  value={priorGift.amount || ""}
+                                  placeholder="0"
+                                  min="0"
+                                  step="1000"
+                                  onChange={(event) =>
+                                    actions.setChildPriorGift(index, {
+                                      ...priorGift,
+                                      amount: Math.max(0, Number(event.target.value) || 0),
+                                    })
+                                  }
+                                />
+                              </label>
+                              <label>
+                                <span className="prior-gift-fields__label">Jaar</span>
+                                <input
+                                  type="number"
+                                  className="prior-gift-fields__input"
+                                  value={priorGift.year || ""}
+                                  min="2000"
+                                  max="2026"
+                                  step="1"
+                                  onChange={(event) =>
+                                    actions.setChildPriorGift(index, {
+                                      ...priorGift,
+                                      year: Number(event.target.value) || 2025,
+                                    })
+                                  }
+                                />
+                              </label>
+                            </div>
+                            <label className="distribution-editor__checkbox">
+                              <input
+                                type="checkbox"
+                                checked={priorGift.usedOneOff || false}
+                                onChange={(event) =>
+                                  actions.setChildPriorGift(index, {
+                                    ...priorGift,
+                                    usedOneOff: event.target.checked,
+                                  })
+                                }
+                              />
+                              <span>Eenmalige verhoogde vrijstelling al gebruikt</span>
+                            </label>
+                          </div>
+                        ) : null}
                       </div>
-                      <label className="distribution-editor__checkbox">
-                        <input
-                          type="checkbox"
-                          checked={state.childLivesInHome?.[index] || false}
-                          onChange={(event) => actions.setChildLivesInHome(index, event.target.checked)}
-                        />
-                        <span>Woont (of gaat wonen) in de woning</span>
-                      </label>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
                 <p className="muted-copy">{termExplainers.childLivesInHome.body}</p>
+                <p className="muted-copy">{termExplainers.childPriorGifts.body}</p>
               </details>
             </div>
 

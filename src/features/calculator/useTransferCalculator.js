@@ -118,6 +118,23 @@ export function useTransferCalculator() {
           { length: childrenCount },
           (_, i) => (current.childLivesInHome || [])[i] || false,
         ),
+        childPriorGifts: Array.from(
+          { length: childrenCount },
+          (_, i) => (current.childPriorGifts || [])[i] || null,
+        ),
+      }));
+    },
+    setHasMortgage(hasMortgage) {
+      setState((current) => ({
+        ...current,
+        hasMortgage,
+        ...(hasMortgage
+          ? {}
+          : {
+              mortgageBalance: 0,
+              mortgageInterestRate: 0,
+              monthlyMortgageCost: 0,
+            }),
       }));
     },
     setChildLivesInHome(index, value) {
@@ -125,6 +142,13 @@ export function useTransferCalculator() {
         const next = [...(current.childLivesInHome || [])];
         next[index] = Boolean(value);
         return { ...current, childLivesInHome: next };
+      });
+    },
+    setChildPriorGift(index, gift) {
+      setState((current) => {
+        const next = [...(current.childPriorGifts || [])];
+        next[index] = gift; // { amount, year, usedOneOff } or null
+        return { ...current, childPriorGifts: next };
       });
     },
     setChildShare(index, rawValue) {

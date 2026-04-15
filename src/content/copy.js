@@ -449,6 +449,16 @@ export const termExplainers = {
     body:
       "Als een kind zelf in de woning woont of gaat wonen, geldt het lagere eigen-woningtarief van 2% overdrachtsbelasting in plaats van 10,4%. Bovendien valt het woningdeel van dat kind in box 1 in plaats van box 3, waardoor er geen vermogensrendementsheffing over dat deel wordt berekend. In de per-kind uitsplitsing ziet u het verschil terug.",
   },
+  childPriorGifts: {
+    title: "Waarom vraagt de tool naar eerdere schenkingen?",
+    body:
+      "Als u eerder al aan een kind hebt geschonken, kan dat van invloed zijn op de beschikbare vrijstellingen. Met name de eenmalig verhoogde vrijstelling kan maar 1 keer per kind worden gebruikt. Als die al is ingezet, rekent de tool voor dat kind alleen met de gewone jaarlijkse vrijstelling.",
+  },
+  hasMortgage: {
+    title: "Wat als de woning hypotheekvrij is?",
+    body:
+      "Als u geen hypotheek meer heeft, speelt hypotheekrenteaftrek geen rol meer in de vergelijking. Kies dan 'Nee, hypotheekvrij' en de tool slaat die berekening over.",
+  },
   yearsToReview: {
     title: "Waarom kiest u een aantal jaren vooruit?",
     body:

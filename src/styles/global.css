@@ -1975,6 +1975,40 @@ input {
   accent-color: var(--color-brand-700);
 }
 
+.prior-gift-fields {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--color-ink-100);
+  border-radius: var(--radius-sm);
+  margin-top: var(--space-1);
+}
+
+.prior-gift-fields__row {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.prior-gift-fields__row label {
+  display: grid;
+  gap: 2px;
+  flex: 1;
+}
+
+.prior-gift-fields__label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-ink-700);
+}
+
+.prior-gift-fields__input {
+  padding: var(--space-2);
+  border: 1px solid var(--color-ink-300);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  width: 100%;
+}
+
 .wizard-subsection {
   display: grid;
   gap: var(--space-4);

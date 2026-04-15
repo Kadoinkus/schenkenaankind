@@ -195,6 +195,7 @@ function buildAnnualTransferSchedule({
   startYear,
   yearsToReview,
   childrenCount,
+  childrenEligibleForOneOff,
   annualGiftExemptionPerChild,
   oneOffGiftExemptionPerChild,
   useOneOffGiftExemption,
@@ -203,14 +204,19 @@ function buildAnnualTransferSchedule({
 }) {
   const schedule = [];
   let remainingTargetValue = Math.max(0, targetTransferValue);
+  const childrenWithOneOffUsed = childrenCount - childrenEligibleForOneOff;
 
   for (let index = 0; index < yearsToReview; index += 1) {
     const year = startYear + index;
-    const exemptionPerChild =
-      year === higherExemptionYear && useOneOffGiftExemption
-        ? oneOffGiftExemptionPerChild
-        : annualGiftExemptionPerChild;
-    const availableExemptionTotal = exemptionPerChild * childrenCount;
+    const isOneOffYear = year === higherExemptionYear && useOneOffGiftExemption;
+    const exemptionPerChild = isOneOffYear
+      ? oneOffGiftExemptionPerChild
+      : annualGiftExemptionPerChild;
+    // In the one-off year, children who already used it get only the annual exemption.
+    const availableExemptionTotal = isOneOffYear
+      ? oneOffGiftExemptionPerChild * childrenEligibleForOneOff +
+        annualGiftExemptionPerChild * childrenWithOneOffUsed
+      : exemptionPerChild * childrenCount;
     const transferValueTotal = Math.min(remainingTargetValue, availableExemptionTotal);
 
     schedule.push({
@@ -251,18 +257,28 @@ export function calculateTransferScenarios(input, rules = taxRules2026) {
     input.oneOffGiftExemptionPerChild ?? rules.oneOffChildGiftExemption,
   );
   const useOneOffGiftExemption = Boolean(input.useOneOffGiftExemption);
+  const childPriorGifts = Array.from(
+    { length: childrenCount },
+    (_, i) => (input.childPriorGifts || [])[i] || null,
+  );
+  // Count how many children have already used the one-off exemption.
+  const childrenWithOneOffUsed = childPriorGifts.filter((g) => g?.usedOneOff).length;
+  // Effective number of children eligible for the one-off exemption.
+  const childrenEligibleForOneOff = childrenCount - childrenWithOneOffUsed;
   const targetTransferMode = input.targetTransferMode === "custom" ? "custom" : "maxTaxFree";
   const oneTimeTransferYear = clamp(
     Math.round(input.oneTimeTransferYear || baseYear),
     baseYear,
     lastReviewYear,
   );
-  const oneTimeTaxFreeCapacity =
-    (useOneOffGiftExemption
-      ? oneOffGiftExemptionPerChild
-      : annualGiftExemptionPerChild) * childrenCount;
+  // One-off capacity accounts for children who already used the one-off exemption.
+  const oneTimeTaxFreeCapacity = useOneOffGiftExemption
+    ? oneOffGiftExemptionPerChild * childrenEligibleForOneOff +
+      annualGiftExemptionPerChild * childrenWithOneOffUsed
+    : annualGiftExemptionPerChild * childrenCount;
   // Cumulative tax-free capacity across all review years:
-  // one-off year uses the (possibly higher) one-off exemption, remaining years use annual.
+  // one-off year uses the (possibly higher) one-off exemption for eligible children,
+  // remaining years use the annual exemption for all children.
   const cumulativeTaxFreeCapacity =
     oneTimeTaxFreeCapacity +
     annualGiftExemptionPerChild * childrenCount * (yearsToReview - 1);
@@ -312,6 +328,7 @@ export function calculateTransferScenarios(input, rules = taxRules2026) {
     startYear: baseYear,
     yearsToReview,
     childrenCount,
+    childrenEligibleForOneOff,
     annualGiftExemptionPerChild,
     oneOffGiftExemptionPerChild,
     useOneOffGiftExemption,
@@ -334,10 +351,7 @@ export function calculateTransferScenarios(input, rules = taxRules2026) {
     homeValue * Math.pow(1 + annualGrowthRate / 100, oneTimeTransferOffset);
   const plannedTransferValueTotal = targetTransferValue;
   const oneTimeTransferValue = Math.min(targetTransferValue, oneTimeTransferYearHomeValue);
-  const oneTimeAvailableExemption =
-    (useOneOffGiftExemption
-      ? oneOffGiftExemptionPerChild
-      : annualGiftExemptionPerChild) * childrenCount;
+  const oneTimeAvailableExemption = oneTimeTaxFreeCapacity;
   const oneTimeShare =
     oneTimeTransferYearHomeValue > 0
       ? Math.min(1, oneTimeTransferValue / oneTimeTransferYearHomeValue)
@@ -699,6 +713,8 @@ export function calculateTransferScenarios(input, rules = taxRules2026) {
       transferTaxRate,
       residentTransferTaxRate,
       childLivesInHome,
+      childPriorGifts,
+      childrenEligibleForOneOff,
       notaryCostPerTransfer,
       hasPartner,
       partnerSharePercent: normalizedPartnerSharePercent,
